@@ -92,7 +92,7 @@ pm25_yarmag  = scrape_pm25("https://www.iqair.com/mongolia/ulaanbaatar/ulaanbaat
 driver.quit()
 
 # Define output path
-output_path = os.path.join(os.getcwd(), "weather_log.csv")
+output_path = os.path.join(os.path.dirname(__file__), "weather_log.csv")
 
 # Write header if file is empty
 if not os.path.exists(output_path) or os.stat(output_path).st_size == 0:
