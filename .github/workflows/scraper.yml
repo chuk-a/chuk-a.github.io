@@ -43,7 +43,7 @@ jobs:
 
     - name: Auto-commit updated CSV
       run: |
-        cd $GITHUB_WORKSPACE
+        cd $GITHUB_WORKSPACE/chuk-a.github.io
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         git add weather/weather_log.csv
