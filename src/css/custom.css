@@ -1,0 +1,134 @@
+:root {
+  --ifm-font-family-base: 'Inter', sans-serif;
+  --ifm-heading-font-family: 'Inter', sans-serif;
+}
+
+.navbar__title {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400 !important;
+}
+
+.hero__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.heroBanner {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+html, body {
+  font-family: var(--ifm-font-family-base) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+
+/* Headings look closer to IOTA when heavier & slightly tighter */
+.markdown h1, .markdown h2, .markdown h3,
+.hero h1, .hero h2 {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+/* Theme overrides */
+:root {
+  --ifm-color-primary: #4a90e2;
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, Segoe UI, Roboto,
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --ifm-code-font-size: 0.9rem;
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.6rem;
+  --ifm-line-height-base: 1.65;
+  --ifm-container-width-xl: 1200px;
+  --ifm-pre-background: #1e1e1e;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #0a0a0a;
+  --ifm-navbar-background-color: #000000;
+  --ifm-footer-background-color: #000000;
+  --ifm-pre-background: #0a0a0a;
+  --ifm-card-background-color: #0a0a0a;
+  --ifm-color-primary: #4a90e2;
+  --ifm-heading-color: #ffffff;
+  --ifm-text-color: #cccccc;
+  --ifm-link-color: #a3d1ff;
+}
+
+/* Component tweaks */
+.navbar {
+  font-weight: 600;
+}
+
+.markdown img {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.button--primary {
+  border-radius: 6px;
+  font-weight: 600;
+}
+/* === IOTA-ish polish === */
+
+/* Headings: heavier + tighter tracking */
+.markdown h1, .markdown h2, .markdown h3,
+.hero h1, .hero h2 {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+/* Body: smoother + slightly tighter */
+html, body, .markdown {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.markdown p, .markdown li { letter-spacing: -0.003em; }
+
+/* Docs page title spacing (less top gap, more presence) */
+.theme-doc-markdown > h1:first-child {
+  margin-top: .25rem;
+  margin-bottom: 1rem;
+}
+
+/* Breadcrumbs: pill style like IOTA */
+.breadcrumbs {
+  margin-top: .5rem;
+  margin-bottom: 1.25rem;
+}
+.breadcrumbs__link {
+  padding: .35rem .75rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.breadcrumbs__item--active .breadcrumbs__link {
+  background: rgba(74,144,226,0.18); /* primary tint */
+  border-color: rgba(74,144,226,0.25);
+}
+
+/* Links a touch brighter on dark */
+[data-theme="dark"] {
+  --ifm-link-color: #9cc8ff;
+}
+
+/* Subtle section separators inside docs */
+.markdown h2 {
+  padding-top: .5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 2rem;
+}
+
