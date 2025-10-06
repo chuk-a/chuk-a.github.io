@@ -41,11 +41,31 @@ jobs:
     - name: Run weather scraper
       run: python weather/weather_scraper.py
 
+    - name: Debug workspace and file changes
+      run: |
+        echo "=== GITHUB_WORKSPACE ==="
+        echo "$GITHUB_WORKSPACE"
+        echo "=== PWD ==="
+        pwd
+        echo "=== Directory listing ==="
+        ls -al
+        echo "=== Weather directory listing ==="
+        ls -al weather || echo "No weather directory"
+        echo "=== Find weather_log.csv ==="
+        find . -name weather_log.csv
+        echo "=== Git status ==="
+        git status
+        echo "=== Git diff ==="
+        git diff weather/weather_log.csv || echo "No diff"
+        echo "=== End debug ==="
+
     - name: Auto-commit updated CSV
       run: |
-        cd $GITHUB_WORKSPACE/chuk-a.github.io
+        cd $GITHUB_WORKSPACE
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         git add weather/weather_log.csv
+        git status
+        git diff --stat
         git commit -m "Update weather_log.csv [auto]" || echo "No changes to commit"
         git push
