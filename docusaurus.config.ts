@@ -8,7 +8,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
   organizationName: 'chuk-a',
   projectName: 'chuk-a.github.io',
-  deploymentBranch: 'main', // ← Add this line
+  deploymentBranch: 'gh-pages', // ← Add this line
   trailingSlash: true,
 
   i18n: {
