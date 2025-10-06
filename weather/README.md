@@ -1,3 +1,1 @@
-# Your README Content Here
-
-This is the README file for the repository. It contains information about the project and how to use it.
+This repo scrapes pm2.5 data from a variety of embassies in Ulaanbaatar on iQair.com
