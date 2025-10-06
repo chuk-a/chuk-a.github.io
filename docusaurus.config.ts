@@ -3,11 +3,11 @@ import type { Config } from '@docusaurus/types';
 const config: Config = {
   title: 'Chuka',
   tagline: 'The complete reference for ...',
-  url: 'https://my-site.example',
+  url: 'https://chuk-a.github.io',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'chuk-a',
-  projectName: 'my-docusaurus-app',
+  projectName: 'chuk-a.github.io',
   trailingSlash: true,
 
   i18n: {
@@ -27,7 +27,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.ts'),
-          editUrl: 'https://github.com/chuk-a/my-docusaurus-app/edit/main/',
+          editUrl: 'https://github.com/chuk-a/chuk-a.github.io/edit/main/',
         },
         blog: false,
         theme: {
@@ -53,10 +53,10 @@ const config: Config = {
       defaultMode: 'dark',
       respectPrefersColorScheme: false,
     },
-  image: 'img/circuit-svgrepo-com.svg',
+    image: 'img/circuit-svgrepo-com.svg',
     navbar: {
       hideOnScroll: true,
-  title: 'Chuka',
+      title: 'Chuka',
       logo: {
         alt: 'Site Logo',
         src: 'img/circuit-svgrepo-com.svg',
@@ -67,7 +67,7 @@ const config: Config = {
         { label: 'Build', to: '/build' },
         { label: 'Maintain', to: '/maintain' },
         {
-          href: 'https://github.com/chuk-a/my-docusaurus-app',
+          href: 'https://github.com/chuk-a/chuk-a.github.io',
           label: 'GitHub',
           position: 'right',
         },
@@ -79,10 +79,10 @@ const config: Config = {
     mermaid: {
       theme: {
         light: 'neutral',
-        dark: 'dark', // 'base'
+        dark: 'dark',
       },
       options: {
-        maxTextSize: 50000, // or even 100000 if you're rendering large diagrams
+        maxTextSize: 50000,
       },
     },
   },
