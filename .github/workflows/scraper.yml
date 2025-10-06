@@ -62,10 +62,11 @@ jobs:
     - name: Auto-commit updated CSV
       run: |
         cd $GITHUB_WORKSPACE
+        # If your script writes to weather_log.csv in root, use this:
+        git add weather_log.csv
+        # If your script writes to weather/weather_log.csv, use this:
+        # git add weather/weather_log.csv
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
-        git add weather/weather_log.csv
-        git status
-        git diff --stat
-        git commit -m "Update weather_log.csv [auto]" || echo "No changes to commit"
+        git commit -m "Update weather log [auto]" || echo "No changes to commit"
         git push
