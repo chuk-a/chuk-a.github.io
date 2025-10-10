@@ -1,6 +1,6 @@
 <img src="/img/CO2%20and%20Plantower%20for%20esphome%20v1_bb.png" alt="CO2 and Plantower for esphome v1_bb" width="300" />
 
-# Maintain
+# ESP32 Code
 
 Keeping things running smoothly is just as important as building them. On the Maintain page, you'll find best practices, troubleshooting tips, and everything you need to ensure your projects stay in top shape. Let's keep your creations thriving!
 
