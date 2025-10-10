@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 const config: Config = {
   title: 'Chuka',
   tagline: 'The complete reference for ...',
-  url: 'https://chuk-a.github.io',
+  url: 'https://chuka.tech',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'chuk-a',
@@ -49,9 +49,15 @@ const config: Config = {
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
   ],
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5098775477645158"
-     crossorigin="anonymous"></script>
-       
+  // Add external scripts using the `scripts` config (not raw HTML)
+  scripts: [
+    {
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5098775477645158',
+      async: true,
+      crossorigin: 'anonymous',
+    },
+  ],
+
   themeConfig: {
     colorMode: {
       defaultMode: 'dark',
