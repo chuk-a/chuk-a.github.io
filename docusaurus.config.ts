@@ -49,6 +49,9 @@ const config: Config = {
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
   ],
 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5098775477645158"
+     crossorigin="anonymous"></script>
+       
   themeConfig: {
     colorMode: {
       defaultMode: 'dark',
