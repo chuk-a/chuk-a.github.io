@@ -10,6 +10,7 @@ export function Slide4({ isActive, activationCount }) {
                 src="https://stream.mux.com/PkFsoKeakRLgL01gjf02CRcSbsJ600Z00NvLr9eRZ92pLbA.m3u8"
                 className="absolute top-0 bottom-0 right-0 h-full object-cover"
                 style={{ left: '400px' }}
+                isActive={isActive}
             />
 
             <div key={activationCount} className="relative z-10 w-full h-full flex flex-col pointer-events-none">

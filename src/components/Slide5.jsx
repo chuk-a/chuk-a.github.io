@@ -10,6 +10,7 @@ export function Slide5({ isActive, activationCount }) {
                 src="https://stream.mux.com/BuGGTsiXq1T00WUb8qfURrHkTCbhrkfFLSv4uAOZzdhw.m3u8"
                 className="absolute object-cover"
                 style={{ width: '200%', height: '200%', bottom: 0, left: 0 }}
+                isActive={isActive}
             />
 
             <div key={activationCount} className="relative z-10 w-full h-full flex flex-col pointer-events-none">

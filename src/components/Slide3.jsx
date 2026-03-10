@@ -80,6 +80,7 @@ export function Slide3({ isActive, activationCount }) {
                 src="https://stream.mux.com/Gs3wZfrtz6ZfqZqQ02c02Z7lugV00FGZvRpcqFTel66r3g.m3u8"
                 className="absolute inset-0 w-full h-full object-cover opacity-50"
                 style={{ transform: 'scale(-1, -1)' }}
+                isActive={isActive}
             />
 
             <div key={activationCount} className="relative z-10 w-full h-full flex flex-col pointer-events-none">

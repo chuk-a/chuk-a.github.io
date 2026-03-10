@@ -1,59 +1,71 @@
 import React, { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 
-export function BackgroundVideo({ src, className = '', style = {} }) {
+export function BackgroundVideo({ src, className = '', style = {}, isActive = true }) {
     const videoRef = useRef(null);
+    const hlsRef = useRef(null);
 
     useEffect(() => {
         const video = videoRef.current;
         if (!video || !src) return;
 
-        // Strictly enforce muted to appease browser autoplay policies dynamically
         video.muted = true;
         video.defaultMuted = true;
         video.playsInline = true;
 
-        let hls;
-
-        const playVideo = async () => {
+        const performPlay = async () => {
+            if (!isActive || !video) return;
             try {
-                await video.play();
+                video.muted = true;
+                const promise = video.play();
+                if (promise) await promise;
             } catch (err) {
-                console.error("Autoplay failed:", err);
+                if (err.name !== 'AbortError') console.error('Autoplay blocked:', err);
             }
         };
 
-        if (Hls.isSupported()) {
-            hls = new Hls({ autoStartLoad: true });
-            hls.attachMedia(video);
+        const setupVideo = () => {
+            if (Hls.isSupported()) {
+                if (hlsRef.current) hlsRef.current.destroy();
+                const hls = new Hls({ autoStartLoad: true, enableWorker: false });
+                hlsRef.current = hls;
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MEDIA_ATTACHED, () => hls.loadSource(src));
+                hls.on(Hls.Events.MANIFEST_PARSED, performPlay);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = src;
+                video.addEventListener('loadedmetadata', performPlay);
+            }
+        };
 
-            hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-                hls.loadSource(src);
-            });
-
-            hls.on(Hls.Events.MANIFEST_PARSED, playVideo);
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            // Safari fallback
-            video.src = src;
-            video.addEventListener('loadedmetadata', playVideo);
-        }
-
-        return () => {
-            if (hls) {
-                hls.destroy();
+        const teardownVideo = () => {
+            if (hlsRef.current) {
+                hlsRef.current.destroy();
+                hlsRef.current = null;
             }
             if (video) {
-                video.removeEventListener('loadedmetadata', playVideo);
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+                video.removeEventListener('loadedmetadata', performPlay);
             }
         };
-    }, [src]);
+
+        if (isActive) {
+            setupVideo();
+            performPlay();
+        } else {
+            teardownVideo();
+        }
+
+        return teardownVideo;
+    }, [src, isActive]);
 
     return (
         <video
             ref={videoRef}
             className={className}
             style={style}
-            autoPlay
             muted
             loop
             playsInline

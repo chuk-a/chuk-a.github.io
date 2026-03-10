@@ -9,6 +9,7 @@ export function Slide1({ isActive, activationCount }) {
             <BackgroundVideo
                 src="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8"
                 className="absolute inset-0 w-full h-full object-cover"
+                isActive={isActive}
             />
 
             <div key={activationCount} className="relative z-10 w-full h-full flex flex-col pointer-events-none">
