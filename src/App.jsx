@@ -117,7 +117,7 @@ function App() {
                 <VideoBackground />
 
                 <div className="hero-content">
-                    <h1 className="hero-title">Gargantua</h1>
+                    <h1 className="hero-title">GARGANTUA</h1>
                     <p className="hero-subtitle">Explore the Singularity</p>
                     <button className="cta-button" onClick={() => document.getElementById('mission').scrollIntoView({ behavior: 'smooth' })}>
                         Initiate Launch
