@@ -389,8 +389,9 @@ body,
   margin: 0.4rem 0 0;
   font-family: "JetBrains Mono", monospace;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.05em;
+  color: #ffffff;
 }
 
 /* Footer Styles */
