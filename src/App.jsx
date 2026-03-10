@@ -35,7 +35,7 @@ function NavBar() {
       <div className="logo">ENDURANCE .</div>
       <div className="nav-links">
         <a href="#hero" className="nav-link">Horizon</a>
-        <a href="#mission" className="nav-link">Mission Log</a>
+        <a href="/portfolio" className="nav-link">Mission Log</a>
         <a href="#vessel" className="nav-link">Vessel Specs</a>
         <a href="#contact" className="nav-link">Contact Earth</a>
       </div>
