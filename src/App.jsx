@@ -47,6 +47,7 @@ function NavBar() {
                 <a href="#hero" className="nav-link">Horizon</a>
                 <a href="/portfolio" className="nav-link">Mission Log</a>
                 <a href="#vessel" className="nav-link">Vessel Specs</a>
+                <a href="/weather" className="nav-link">Atmospheric Data</a>
                 <a href="#contact" className="nav-link">Contact Earth</a>
             </div>
         </nav>
@@ -86,6 +87,7 @@ function Footer() {
                 <div className="footer-logo">Endurance .</div>
                 <div className="footer-text">© 2167 interstellar exploration corp. all rights reserved.</div>
                 <div className="footer-links">
+                    <a href="/weather">Weather Feed</a>
                     <a href="#">Privacy Protocol</a>
                     <a href="#">Security Clearing</a>
                     <a href="#">Signal Support</a>
