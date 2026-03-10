@@ -42,7 +42,7 @@ export function VideoBackground() {
 function NavBar() {
     return (
         <nav className="nav-header">
-            <div className="logo">ENDURANCE .</div>
+            <div className="logo">Endurance .</div>
             <div className="nav-links">
                 <a href="#hero" className="nav-link">Horizon</a>
                 <a href="/portfolio" className="nav-link">Mission Log</a>
@@ -83,7 +83,7 @@ function Footer() {
     return (
         <footer className="footer" id="contact">
             <div className="footer-content">
-                <div className="footer-logo">ENDURANCE .</div>
+                <div className="footer-logo">Endurance .</div>
                 <div className="footer-text">© 2167 interstellar exploration corp. all rights reserved.</div>
                 <div className="footer-links">
                     <a href="#">Privacy Protocol</a>
@@ -117,7 +117,7 @@ function App() {
                 <VideoBackground />
 
                 <div className="hero-content">
-                    <h1 className="hero-title">GARGANTUA</h1>
+                    <h1 className="hero-title">Gargantua</h1>
                     <p className="hero-subtitle">Explore the Singularity</p>
                     <button className="cta-button" onClick={() => document.getElementById('mission').scrollIntoView({ behavior: 'smooth' })}>
                         Initiate Launch
@@ -129,7 +129,7 @@ function App() {
             <section className="content-section" id="mission">
                 <div className="commander-profile">
                     <div className="profile-label">Mission Commander</div>
-                    <h2 className="commander-name">CHUKA</h2>
+                    <h2 className="commander-name">Chuka</h2>
                     <p className="commander-bio">Lead Explorer of the Endurance Mission. Tasked with navigating the singularity and ensuring the survival of the human species through the manipulation of gravity and time.</p>
                 </div>
 
