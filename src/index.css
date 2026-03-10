@@ -186,8 +186,8 @@ body,
 .commander-name {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   color: #ffffff;
   margin: 0 0 1.5rem;
 }
@@ -205,10 +205,9 @@ body,
 .section-title {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
+  font-weight: 700;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.1em;
   margin-bottom: 2rem;
   color: #ffffff;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
