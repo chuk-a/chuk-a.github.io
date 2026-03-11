@@ -1,5 +1,5 @@
 import './index.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function VideoBackground() {
     const videoRef = useRef(null);
@@ -40,15 +40,43 @@ export function VideoBackground() {
 }
 
 function NavBar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
         <nav className="nav-header">
             <div className="logo">Endurance .</div>
+            
+            {/* Desktop Links */}
             <div className="nav-links">
                 <a href="#hero" className="nav-link">Horizon</a>
                 <a href="https://chuka.tech" className="nav-link">Mission Log</a>
                 <a href="#vessel" className="nav-link">Vessel Specs</a>
                 <a href="/weather" className="nav-link">Atmospheric Data</a>
                 <a href="#contact" className="nav-link">Contact Earth</a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+                className="mobile-menu-btn"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle menu"
+            >
+                <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+
+            {/* Mobile Menu Overlay */}
+            <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
+                <div className="mobile-nav-links">
+                    <a href="#hero" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Horizon</a>
+                    <a href="https://chuka.tech" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Mission Log</a>
+                    <a href="#vessel" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Vessel Specs</a>
+                    <a href="/weather" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Atmospheric Data</a>
+                    <a href="#contact" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Contact Earth</a>
+                </div>
             </div>
         </nav>
     );
