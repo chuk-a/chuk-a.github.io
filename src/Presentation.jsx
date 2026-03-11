@@ -7,6 +7,7 @@ import { Slide4 } from './components/Slide4';
 import { Slide5 } from './components/Slide5';
 import { Slide6 } from './components/Slide6';
 import { NavigationDots } from './components/NavigationDots';
+import { MobileMenu } from './components/MobileMenu';
 
 function Presentation() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -68,10 +69,17 @@ function Presentation() {
         })}
       </div>
 
-      <NavigationDots
-        totalSlides={slides.length}
+      <div className="hidden md:block">
+        <NavigationDots
+          totalSlides={slides.length}
+          activeSlideIndex={activeSlideIndex}
+          onDotClick={(index) => setActiveSlideIndex(index)}
+        />
+      </div>
+
+      <MobileMenu
         activeSlideIndex={activeSlideIndex}
-        onDotClick={(index) => setActiveSlideIndex(index)}
+        onSlideChange={(index) => setActiveSlideIndex(index)}
       />
     </div>
   );
