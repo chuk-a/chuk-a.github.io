@@ -8,6 +8,8 @@ export function VideoBackground() {
         const video = videoRef.current;
         if (video) {
             video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
             video.load();
             const attemptPlay = () => {
                 video.play().catch(error => {
@@ -32,6 +34,7 @@ export function VideoBackground() {
                 playsInline
                 className="video-background"
             >
+                <source src="/gargantua_optimized.mp4" type="video/mp4" />
                 <source src="/gargantua.webm" type="video/webm" />
             </video>
             <div className="hero-gradient-overlay" />
