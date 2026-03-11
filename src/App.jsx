@@ -34,8 +34,8 @@ export function VideoBackground() {
                 playsInline
                 className="video-background"
             >
-                <source src="/gargantua_optimized.mp4" type="video/mp4" />
                 <source src="/gargantua.webm" type="video/webm" />
+                <source src="/gargantua_hq.mp4" type="video/mp4" />
             </video>
             <div className="hero-gradient-overlay" />
         </>
