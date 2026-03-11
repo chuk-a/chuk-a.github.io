@@ -45,7 +45,7 @@ function NavBar() {
             <div className="logo">Endurance .</div>
             <div className="nav-links">
                 <a href="#hero" className="nav-link">Horizon</a>
-                <a href="/portfolio" className="nav-link">Mission Log</a>
+                <a href="https://chuka.tech" className="nav-link">Mission Log</a>
                 <a href="#vessel" className="nav-link">Vessel Specs</a>
                 <a href="/weather" className="nav-link">Atmospheric Data</a>
                 <a href="#contact" className="nav-link">Contact Earth</a>
