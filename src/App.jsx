@@ -1,5 +1,8 @@
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { GargantuaPage } from './components/GargantuaPage';
+import { RadiantPage } from './components/RadiantPage';
 
 export function VideoBackground() {
     const videoRef = useRef(null);
@@ -51,11 +54,12 @@ function NavBar() {
             
             {/* Desktop Links */}
             <div className="nav-links">
-                <a href="#hero" className="nav-link">Horizon</a>
+                <a href="/#hero" className="nav-link">Horizon</a>
+                <Link to="/radiant" className="nav-link">Radiant</Link>
                 <a href="/portfolio" className="nav-link">Mission Log</a>
-                <a href="#vessel" className="nav-link">Vessel Specs</a>
+                <a href="/#vessel" className="nav-link">Vessel Specs</a>
                 <a href="/weather" className="nav-link">Atmospheric Data</a>
-                <a href="#contact" className="nav-link">Contact Earth</a>
+                <a href="/#contact" className="nav-link">Contact Earth</a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -74,11 +78,12 @@ function NavBar() {
             {/* Mobile Menu Overlay */}
             <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
                 <div className="mobile-nav-links">
-                    <a href="#hero" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Horizon</a>
+                    <a href="/#hero" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Horizon</a>
+                    <Link to="/radiant" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Radiant</Link>
                     <a href="/portfolio" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Mission Log</a>
-                    <a href="#vessel" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Vessel Specs</a>
+                    <a href="/#vessel" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Vessel Specs</a>
                     <a href="/weather" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Atmospheric Data</a>
-                    <a href="#contact" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Contact Earth</a>
+                    <a href="/#contact" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Contact Earth</a>
                 </div>
             </div>
         </nav>
@@ -128,15 +133,20 @@ function Footer() {
     );
 }
 
-function App() {
+function LandingPage() {
     useEffect(() => {
         // Smooth scroll behavior fallback for older browsers
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const href = this.getAttribute('href');
+                const id = href.substring(1);
+                const element = document.querySelector(id);
+                if (element) {
+                    e.preventDefault();
+                    element.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     }, []);
@@ -202,6 +212,18 @@ function App() {
             {/* Footer */}
             <Footer />
         </div>
+    );
+}
+
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/blackhole" element={<GargantuaPage />} />
+                <Route path="/radiant" element={<RadiantPage />} />
+            </Routes>
+        </Router>
     );
 }
 
