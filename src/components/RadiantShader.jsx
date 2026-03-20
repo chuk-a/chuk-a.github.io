@@ -484,6 +484,58 @@ void main() {
 
         document.addEventListener('visibilitychange', handleVisibility);
 
+        let mouseDown = false;
+        let lastMX = 0, lastMY = 0;
+
+        const handleMouseDown = (e) => {
+            mouseDown = true;
+            lastMX = e.clientX;
+            lastMY = e.clientY;
+        };
+
+        const handleMouseMove = (e) => {
+            if (mouseDown) {
+                tiltVal += (e.clientY - lastMY) * 0.003;
+                rotateVal += (e.clientX - lastMX) * 0.003;
+                tiltVal = Math.max(-0.8, Math.min(0.8, tiltVal));
+                lastMX = e.clientX;
+                lastMY = e.clientY;
+            }
+        };
+
+        const handleMouseUp = () => {
+            mouseDown = false;
+        };
+
+        const handleTouchStart = (e) => {
+            if (e.touches.length > 0) {
+                mouseDown = true;
+                lastMX = e.touches[0].clientX;
+                lastMY = e.touches[0].clientY;
+            }
+        };
+
+        const handleTouchMove = (e) => {
+            if (mouseDown && e.touches.length > 0) {
+                tiltVal += (e.touches[0].clientY - lastMY) * 0.003;
+                rotateVal += (e.touches[0].clientX - lastMX) * 0.003;
+                tiltVal = Math.max(-0.8, Math.min(0.8, tiltVal));
+                lastMX = e.touches[0].clientX;
+                lastMY = e.touches[0].clientY;
+            }
+        };
+
+        const handleTouchEnd = () => {
+            mouseDown = false;
+        };
+
+        canvas.addEventListener('mousedown', handleMouseDown);
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', handleTouchEnd);
+
         const handleMessage = (e) => {
             if (e.data && e.data.type === 'param') {
                 switch (e.data.name) {
@@ -506,6 +558,12 @@ void main() {
             cancelAnimationFrame(rafId);
             document.removeEventListener('visibilitychange', handleVisibility);
             window.removeEventListener('message', handleMessage);
+            canvas.removeEventListener('mousedown', handleMouseDown);
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', handleMouseUp);
+            canvas.removeEventListener('touchstart', handleTouchStart);
+            canvas.removeEventListener('touchmove', handleTouchMove);
+            canvas.removeEventListener('touchend', handleTouchEnd);
             gl.deleteProgram(prog);
             gl.deleteBuffer(buf);
         };
