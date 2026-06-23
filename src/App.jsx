@@ -223,7 +223,7 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/blackhole" element={<GargantuaPage />} />
                 <Route path="/radiant" element={<RadiantPage />} />
-                <Route path="/ipod-danny" element={<IpodDannyPage />} />
+                <Route path="/ipod-mongolia" element={<IpodDannyPage />} />
             </Routes>
         </Router>
     );
