@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const RECEIVER_EMAIL = "chuluunbaatar@gmail.com";
 
 const PARTS_LIST = [
-    { id: 'lcd', name: 'Original Disassembly LCD Screen', description: 'Оригиналь задаргааны LCD дэлгэц. (Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй)', price: 110000, category: 'parts' },
+    { id: 'lcd', name: 'Original Disassembly LCD Screen', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts' },
     { id: 'battery', name: '650mAh Thin Li-Po Battery', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts' },
     { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true },
     { id: 'center', name: 'Center Button', description: 'Гол товчлуур (Click Wheel Center Button). Өнгө тохируулан сонгох боломжтой.', price: 10000, category: 'parts', hasColor: true },
