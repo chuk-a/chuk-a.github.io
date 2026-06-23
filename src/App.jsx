@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { GargantuaPage } from './components/GargantuaPage';
 import { RadiantPage } from './components/RadiantPage';
+import { IpodDannyPage } from './components/IpodDannyPage';
 
 export function VideoBackground() {
     const videoRef = useRef(null);
@@ -222,6 +223,7 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/blackhole" element={<GargantuaPage />} />
                 <Route path="/radiant" element={<RadiantPage />} />
+                <Route path="/ipod-danny" element={<IpodDannyPage />} />
             </Routes>
         </Router>
     );
