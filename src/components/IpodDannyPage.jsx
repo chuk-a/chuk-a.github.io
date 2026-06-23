@@ -417,6 +417,31 @@ export function IpodDannyPage() {
                                         </div>
                                     </div>
 
+                                    {/* Payment & Terms Info Card */}
+                                    <div className="bg-neutral-900/20 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-4">
+                                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-indigo-500" />
+                                            3. Төлбөр хийх дансны мэдээлэл (Payment Info)
+                                        </h3>
+                                        <p className="text-xs text-neutral-400">
+                                            Захиалгаа баталгаажуулахын тулд дараах дансны аль нэг рүү шилжүүлнэ үү.
+                                        </p>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                                <span className="text-[10px] font-mono text-neutral-500">Хаан Банк</span>
+                                                <span className="text-base font-bold text-white mt-1">5111 573 367</span>
+                                            </div>
+                                            <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                                <span className="text-[10px] font-mono text-neutral-500">М Банк</span>
+                                                <span className="text-base font-bold text-white mt-1">MN53 0039 00 8000 969699</span>
+                                            </div>
+                                        </div>
+                                        <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 text-xs text-amber-300/90 leading-relaxed space-y-1.5 mt-2">
+                                            <p>⚠️ <strong>Санамж:</strong> Олон улсын тээврээс шалтгаалж, бүтээгдэхүүн бэлэн болох хугацаа янз бүр байж болно.</p>
+                                            <p>💳 Төлбөрийг дансанд хийснээр захиалга баталгаажна.</p>
+                                        </div>
+                                    </div>
+
                                     {/* Total Price Widget & Submit Button */}
                                     <div className="bg-neutral-900/30 border border-white/5 rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
                                         <div>
