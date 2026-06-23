@@ -8,7 +8,7 @@ const PARTS_LIST = [
     { id: 'lcd', name: 'Original Disassembly LCD Screen', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts' },
     { id: 'battery', name: '650mAh Thin Li-Po Battery', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts' },
     { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true },
-    { id: 'center', name: 'Center Button', description: 'Гол товчлуур (Click Wheel Center Button). Өнгө тохируулан сонгох боломжтой.', price: 10000, category: 'parts', hasColor: true },
+    { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true },
     { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts' },
     { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ (Хятадаас Монгол руу).', price: 15000, category: 'service' },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
@@ -111,12 +111,20 @@ export function IpodDannyPage() {
     const getFaceplateHex = () => {
         if (faceplateColor === 'gold') return 'linear-gradient(135deg, #f3d075 0%, #d4af37 50%, #aa8210 100%)';
         if (faceplateColor === 'silver') return 'linear-gradient(135deg, #e6e6e6 0%, #b3b3b3 50%, #808080 100%)';
+        if (faceplateColor === 'blue') return 'linear-gradient(135deg, #60a5fa 0%, #2563eb 50%, #1e3a8a 100%)';
+        if (faceplateColor === 'green') return 'linear-gradient(135deg, #4ade80 0%, #16a34a 50%, #14532d 100%)';
+        if (faceplateColor === 'red') return 'linear-gradient(135deg, #f87171 0%, #dc2626 50%, #7f1d1d 100%)';
+        if (faceplateColor === 'purple') return 'linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #581c87 100%)';
         return 'linear-gradient(135deg, #2b2b2b 0%, #171717 50%, #0a0a0a 100%)';
     };
 
     const getCenterHex = () => {
         if (centerColor === 'gold') return '#d4af37';
         if (centerColor === 'silver') return '#b3b3b3';
+        if (centerColor === 'red') return '#dc2626';
+        if (centerColor === 'blue') return '#2563eb';
+        if (centerColor === 'green') return '#16a34a';
+        if (centerColor === 'purple') return '#9333ea';
         return '#171717';
     };
 
@@ -319,25 +327,35 @@ export function IpodDannyPage() {
                                                                     onClick={(e) => e.stopPropagation()} // Stop click bubbling
                                                                 >
                                                                     <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
-                                                                    {['black', 'silver', 'gold'].map((color) => (
-                                                                        <button
-                                                                            key={color}
-                                                                            type="button"
-                                                                            onClick={() => {
-                                                                                if (part.id === 'faceplate') setFaceplateColor(color);
-                                                                                if (part.id === 'center') setCenterColor(color);
-                                                                            }}
-                                                                            className={`w-5 h-5 rounded-full border transition-all relative ${
-                                                                                (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
-                                                                                    ? 'ring-2 ring-indigo-500 border-transparent scale-110'
-                                                                                    : 'border-white/20'
-                                                                            }`}
-                                                                            style={{
-                                                                                background: color === 'gold' ? '#d4af37' : color === 'silver' ? '#c0c0c0' : '#1a1a1a'
-                                                                            }}
-                                                                            title={color.toUpperCase()}
-                                                                        />
-                                                                    ))}
+                                                                    {(part.id === 'faceplate' 
+                                                                        ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
+                                                                        : ['black', 'silver', 'red', 'blue', 'green', 'purple']
+                                                                    ).map((color) => {
+                                                                        let bg = '#1a1a1a';
+                                                                        if (color === 'gold') bg = '#d4af37';
+                                                                        else if (color === 'silver') bg = '#c0c0c0';
+                                                                        else if (color === 'blue') bg = '#2563eb';
+                                                                        else if (color === 'green') bg = '#16a34a';
+                                                                        else if (color === 'red') bg = '#dc2626';
+                                                                        else if (color === 'purple') bg = '#9333ea';
+                                                                        return (
+                                                                            <button
+                                                                                key={color}
+                                                                                type="button"
+                                                                                onClick={() => {
+                                                                                    if (part.id === 'faceplate') setFaceplateColor(color);
+                                                                                    if (part.id === 'center') setCenterColor(color);
+                                                                                }}
+                                                                                className={`w-5 h-5 rounded-full border transition-all relative ${
+                                                                                    (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
+                                                                                        ? 'ring-2 ring-indigo-500 border-transparent scale-110'
+                                                                                        : 'border-white/20'
+                                                                                }`}
+                                                                                style={{ background: bg }}
+                                                                                title={color.toUpperCase()}
+                                                                            />
+                                                                        );
+                                                                    })}
                                                                 </div>
                                                             )}
                                                         </div>
