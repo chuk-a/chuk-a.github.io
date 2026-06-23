@@ -461,25 +461,49 @@ export function IpodDannyPage() {
                                         </div>
                                     </div>
 
-                                    {/* Payment & Terms Info Card */}
+                                    {/* Payment & Contact Info Card */}
                                     <div className="bg-neutral-900/20 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-4">
                                         <h3 className="text-lg font-bold text-white flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-indigo-500" />
-                                            3. Төлбөр хийх дансны мэдээлэл (Payment Info)
+                                            3. Төлбөр хийх болон Холбоо барих мэдээлэл (Payment & Contact)
                                         </h3>
-                                        <p className="text-xs text-neutral-400">
-                                            Захиалгаа баталгаажуулахын тулд дараах дансны аль нэг рүү шилжүүлнэ үү.
-                                        </p>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
-                                                <span className="text-[10px] font-mono text-neutral-500">Хаан Банк</span>
-                                                <span className="text-base font-bold text-white mt-1">5111 573 367</span>
-                                            </div>
-                                            <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
-                                                <span className="text-[10px] font-mono text-neutral-500">М Банк</span>
-                                                <span className="text-base font-bold text-white mt-1">MN53 0039 00 8000 969699</span>
+                                        
+                                        <div>
+                                            <h4 className="text-xs font-mono uppercase text-indigo-400 mb-2">Шилжүүлэг хийх дансууд:</h4>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                                    <span className="text-[10px] font-mono text-neutral-500">Хаан Банк</span>
+                                                    <span className="text-base font-bold text-white mt-1">5111 573 367</span>
+                                                </div>
+                                                <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                                    <span className="text-[10px] font-mono text-neutral-500">М Банк</span>
+                                                    <span className="text-base font-bold text-white mt-1">MN53 0039 00 8000 969699</span>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div className="pt-2">
+                                            <h4 className="text-xs font-mono uppercase text-indigo-400 mb-2">Холбоо барих мэдээлэл:</h4>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                                    <span className="text-[10px] font-mono text-neutral-500">Утасны дугаар</span>
+                                                    <span className="text-base font-bold text-white mt-1">99029760</span>
+                                                </div>
+                                                <a 
+                                                    href="https://facebook.com/iPodMongolia" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="p-4 bg-neutral-950/40 hover:bg-neutral-900/60 rounded-2xl border border-white/5 hover:border-indigo-500/20 transition-all flex flex-col justify-between group cursor-pointer"
+                                                >
+                                                    <span className="text-[10px] font-mono text-neutral-500 group-hover:text-indigo-400 transition-colors">Facebook хуудас</span>
+                                                    <span className="text-base font-bold text-white mt-1 flex items-center gap-1 group-hover:text-indigo-300 transition-colors">
+                                                        facebook.com/iPodMongolia
+                                                        <span className="text-xs text-neutral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
                                         <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 text-xs text-amber-300/90 leading-relaxed space-y-1.5 mt-2">
                                             <p>⚠️ <strong>Санамж:</strong> Олон улсын тээврээс шалтгаалж, бүтээгдэхүүн бэлэн болох хугацаа янз бүр байж болно.</p>
                                             <p>💳 Төлбөрийг дансанд хийснээр захиалга баталгаажна.</p>
