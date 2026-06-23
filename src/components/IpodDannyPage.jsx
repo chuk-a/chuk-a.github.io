@@ -366,7 +366,7 @@ export function IpodDannyPage() {
                                                                     >
                                                                         <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
                                                                         {(part.id === 'faceplate' 
-                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple', 'yellow']
+                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
                                                                             : ['black', 'silver', 'red', 'blue', 'green', 'purple', 'yellow']
                                                                         ).map((color) => {
                                                                             let bg = '#1a1a1a';
