@@ -126,6 +126,7 @@ export function IpodDannyPage() {
         if (faceplateColor === 'green') return 'linear-gradient(135deg, #4ade80 0%, #16a34a 50%, #14532d 100%)';
         if (faceplateColor === 'red') return 'linear-gradient(135deg, #f87171 0%, #dc2626 50%, #7f1d1d 100%)';
         if (faceplateColor === 'purple') return 'linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #581c87 100%)';
+        if (faceplateColor === 'yellow') return 'linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)';
         return 'linear-gradient(135deg, #2b2b2b 0%, #171717 50%, #0a0a0a 100%)';
     };
 
@@ -136,6 +137,7 @@ export function IpodDannyPage() {
         if (centerColor === 'blue') return '#2563eb';
         if (centerColor === 'green') return '#16a34a';
         if (centerColor === 'purple') return '#9333ea';
+        if (centerColor === 'yellow') return '#eab308';
         return '#171717';
     };
 
@@ -364,8 +366,8 @@ export function IpodDannyPage() {
                                                                     >
                                                                         <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
                                                                         {(part.id === 'faceplate' 
-                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
-                                                                            : ['black', 'silver', 'red', 'blue', 'green', 'purple']
+                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple', 'yellow']
+                                                                            : ['black', 'silver', 'red', 'blue', 'green', 'purple', 'yellow']
                                                                         ).map((color) => {
                                                                             let bg = '#1a1a1a';
                                                                             if (color === 'gold') bg = '#d4af37';
@@ -374,6 +376,7 @@ export function IpodDannyPage() {
                                                                             else if (color === 'green') bg = '#16a34a';
                                                                             else if (color === 'red') bg = '#dc2626';
                                                                             else if (color === 'purple') bg = '#9333ea';
+                                                                            else if (color === 'yellow') bg = '#eab308';
                                                                             return (
                                                                                 <button
                                                                                     key={color}
