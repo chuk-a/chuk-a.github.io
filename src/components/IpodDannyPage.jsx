@@ -10,6 +10,7 @@ const PARTS_LIST = [
     { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
     { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
     { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts', image: '/backplate.png' },
+    { id: 'case', name: 'Clear Case', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case.jpg' },
     { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 15000, category: 'service' },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
 ];
@@ -22,6 +23,7 @@ export function IpodDannyPage() {
         faceplate: true,
         center: true,
         backplate: true,
+        case: true,
         shipping: true,
         labor: true
     });
@@ -37,7 +39,7 @@ export function IpodDannyPage() {
 
     // State for submit
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
-    const [totalPrice, setTotalPrice] = useState(280000);
+    const [totalPrice, setTotalPrice] = useState(300000);
 
     // Lightbox Modal States
     const [activePhoto, setActivePhoto] = useState(null);
