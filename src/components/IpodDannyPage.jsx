@@ -9,7 +9,7 @@ const PARTS_LIST = [
     { id: 'battery', name: '650mAh Thin Li-Po Battery', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts', image: '/battery.jpg' },
     { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
     { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
-    { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts', image: '/backplate.jpg' },
+    { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts', image: '/backplate.png' },
     { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 15000, category: 'service' },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
 ];
@@ -544,7 +544,7 @@ export function IpodDannyPage() {
                             exit={{ scale: 0.95, opacity: 0 }}
                             transition={{ type: "spring", duration: 0.4 }}
                             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
-                            className="relative max-w-2xl w-full bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 cursor-default flex flex-col"
+                            className="relative max-w-4xl w-full bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 cursor-default flex flex-col max-h-[95vh] overflow-y-auto"
                         >
                             {/* Close Button */}
                             <button
@@ -565,13 +565,13 @@ export function IpodDannyPage() {
                             </div>
 
                             {/* Image Container */}
-                            <div className="relative w-full aspect-video md:aspect-[4/3] bg-neutral-950/40 rounded-2xl overflow-hidden flex items-center justify-center border border-white/5 min-h-[280px]">
+                            <div className="relative w-full bg-neutral-950/40 rounded-2xl overflow-hidden flex items-center justify-center border border-white/5 p-2 min-h-[300px]">
                                 {!imageError ? (
                                     <img
                                         src={activePhoto.url}
                                         alt={activePhoto.title}
                                         onError={() => setImageError(true)}
-                                        className="max-h-[60vh] max-w-full object-contain rounded-lg shadow-md"
+                                        className="max-h-[75vh] max-w-full object-contain rounded-xl shadow-md"
                                     />
                                 ) : (
                                     <div className="p-6 text-center max-w-md flex flex-col items-center gap-4">
