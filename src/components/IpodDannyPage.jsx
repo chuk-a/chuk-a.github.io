@@ -34,7 +34,6 @@ export function IpodDannyPage() {
     // Form fields
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
     const [notes, setNotes] = useState('');
 
     // State for submit
@@ -59,6 +58,7 @@ export function IpodDannyPage() {
     }, [selectedParts]);
 
     const handlePartToggle = (id) => {
+        if (id === 'shipping' || id === 'labor') return;
         setSelectedParts(prev => ({
             ...prev,
             [id]: !prev[id]
@@ -89,7 +89,7 @@ export function IpodDannyPage() {
             _subject: `Шинэ iPod Захиалга - ${name}`,
             Нэр: name,
             Утас: phone,
-            Хүргэлтийн_хаяг: selectedParts.shipping ? address : 'Хүргэлтгүй (Шууд авна)',
+            Хүргэлт: 'Шууд авна (Хүргэлтгүй)',
             Нэмэлт_тайлбар: notes || 'Байхгүй',
             Сонгосон_ангиуд: selectedList,
             Нийт_дүн: `${totalPrice.toLocaleString()} ₮`,
@@ -286,7 +286,7 @@ export function IpodDannyPage() {
                                         <div className="text-xs space-y-1.5 text-neutral-300">
                                             <p><strong className="text-white">Нэр:</strong> {name}</p>
                                             <p><strong className="text-white">Утас:</strong> {phone}</p>
-                                            {selectedParts.shipping && <p><strong className="text-white">Хаяг:</strong> {address}</p>}
+                                            <p><strong className="text-white">Хүргэлт:</strong> Шууд авна (Хүргэлтгүй)</p>
                                             <p><strong className="text-white">Нийт төлбөр:</strong> {totalPrice.toLocaleString()} ₮</p>
                                         </div>
                                     </div>
@@ -296,7 +296,6 @@ export function IpodDannyPage() {
                                             setStatus('idle');
                                             setName('');
                                             setPhone('');
-                                            setAddress('');
                                             setNotes('');
                                         }}
                                         className="mt-8 px-6 py-2.5 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 transition-colors"
@@ -314,92 +313,97 @@ export function IpodDannyPage() {
                                         </h3>
 
                                         <div className="space-y-4">
-                                            {PARTS_LIST.map((part) => (
-                                                <div 
-                                                    key={part.id}
-                                                    onClick={() => handlePartToggle(part.id)}
-                                                    className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 select-none ${
-                                                        selectedParts[part.id] 
-                                                            ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
-                                                            : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
-                                                    }`}
-                                                >
-                                                    <div className="flex items-start gap-4">
-                                                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center mt-1 shrink-0 transition-all ${
-                                                            selectedParts[part.id]
-                                                                ? 'bg-indigo-600 border-indigo-500 text-white'
-                                                                : 'border-neutral-700'
-                                                        }`}>
-                                                            {selectedParts[part.id] && <span className="text-[10px]">✓</span>}
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="font-bold text-sm text-neutral-100">{part.name}</h4>
-                                                            <p className="text-xs text-neutral-400 mt-1 max-w-md leading-relaxed">{part.description}</p>
-                                                            
-                                                            {part.image && (
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
-                                                                        setActivePhoto({ url: part.image, title: part.name, filename: part.image.substring(1) });
-                                                                    }}
-                                                                    className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer w-fit"
-                                                                >
-                                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                                                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                                                        <circle cx="12" cy="13" r="4"></circle>
-                                                                    </svg>
-                                                                    Зураг харах (View Photo)
-                                                                </button>
-                                                            )}
+                                            {PARTS_LIST.map((part) => {
+                                                const isRequired = part.id === 'shipping' || part.id === 'labor';
+                                                return (
+                                                    <div 
+                                                        key={part.id}
+                                                        onClick={() => !isRequired && handlePartToggle(part.id)}
+                                                        className={`p-4 rounded-2xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 select-none ${
+                                                            isRequired
+                                                                ? 'bg-neutral-950/40 border-white/5 opacity-80 cursor-default'
+                                                                : selectedParts[part.id] 
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)] cursor-pointer' 
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10 cursor-pointer'
+                                                        }`}
+                                                    >
+                                                        <div className="flex items-start gap-4">
+                                                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center mt-1 shrink-0 transition-all ${
+                                                                isRequired || selectedParts[part.id]
+                                                                    ? 'bg-indigo-600 border-indigo-500 text-white'
+                                                                    : 'border-neutral-700'
+                                                            }`}>
+                                                                {(isRequired || selectedParts[part.id]) && <span className="text-[10px]">✓</span>}
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="font-bold text-sm text-neutral-100">{part.name}</h4>
+                                                                <p className="text-xs text-neutral-400 mt-1 max-w-md leading-relaxed">{part.description}</p>
+                                                                
+                                                                {part.image && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            setActivePhoto({ url: part.image, title: part.name, filename: part.image.substring(1) });
+                                                                        }}
+                                                                        className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer w-fit"
+                                                                    >
+                                                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                                            <circle cx="12" cy="13" r="4"></circle>
+                                                                        </svg>
+                                                                        Зураг харах (View Photo)
+                                                                    </button>
+                                                                )}
 
-                                                            {/* Color selections if enabled */}
-                                                            {selectedParts[part.id] && part.hasColor && (
-                                                                <div 
-                                                                    className="flex gap-2.5 mt-3 items-center"
-                                                                    onClick={(e) => e.stopPropagation()} // Stop click bubbling
-                                                                >
-                                                                    <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
-                                                                    {(part.id === 'faceplate' 
-                                                                        ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
-                                                                        : ['black', 'silver', 'red', 'blue', 'green', 'purple']
-                                                                    ).map((color) => {
-                                                                        let bg = '#1a1a1a';
-                                                                        if (color === 'gold') bg = '#d4af37';
-                                                                        else if (color === 'silver') bg = '#c0c0c0';
-                                                                        else if (color === 'blue') bg = '#2563eb';
-                                                                        else if (color === 'green') bg = '#16a34a';
-                                                                        else if (color === 'red') bg = '#dc2626';
-                                                                        else if (color === 'purple') bg = '#9333ea';
-                                                                        return (
-                                                                            <button
-                                                                                key={color}
-                                                                                type="button"
-                                                                                onClick={() => {
-                                                                                    if (part.id === 'faceplate') setFaceplateColor(color);
-                                                                                    if (part.id === 'center') setCenterColor(color);
-                                                                                }}
-                                                                                className={`w-5 h-5 rounded-full border transition-all relative ${
-                                                                                    (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
-                                                                                        ? 'ring-2 ring-indigo-500 border-transparent scale-110'
-                                                                                        : 'border-white/20'
-                                                                                }`}
-                                                                                style={{ background: bg }}
-                                                                                title={color.toUpperCase()}
-                                                                            />
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            )}
+                                                                {/* Color selections if enabled */}
+                                                                {selectedParts[part.id] && part.hasColor && (
+                                                                    <div 
+                                                                        className="flex gap-2.5 mt-3 items-center"
+                                                                        onClick={(e) => e.stopPropagation()} // Stop click bubbling
+                                                                    >
+                                                                        <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
+                                                                        {(part.id === 'faceplate' 
+                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
+                                                                            : ['black', 'silver', 'red', 'blue', 'green', 'purple']
+                                                                        ).map((color) => {
+                                                                            let bg = '#1a1a1a';
+                                                                            if (color === 'gold') bg = '#d4af37';
+                                                                            else if (color === 'silver') bg = '#c0c0c0';
+                                                                            else if (color === 'blue') bg = '#2563eb';
+                                                                            else if (color === 'green') bg = '#16a34a';
+                                                                            else if (color === 'red') bg = '#dc2626';
+                                                                            else if (color === 'purple') bg = '#9333ea';
+                                                                            return (
+                                                                                <button
+                                                                                    key={color}
+                                                                                    type="button"
+                                                                                    onClick={() => {
+                                                                                        if (part.id === 'faceplate') setFaceplateColor(color);
+                                                                                        if (part.id === 'center') setCenterColor(color);
+                                                                                    }}
+                                                                                    className={`w-5 h-5 rounded-full border transition-all relative ${
+                                                                                        (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
+                                                                                            ? 'ring-2 ring-indigo-500 border-transparent scale-110'
+                                                                                            : 'border-white/20'
+                                                                                    }`}
+                                                                                    style={{ background: bg }}
+                                                                                    title={color.toUpperCase()}
+                                                                                />
+                                                                            );
+                                                                        })}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-right shrink-0">
+                                                            <span className="text-sm font-semibold text-indigo-300 font-mono">
+                                                                +{part.price.toLocaleString()} ₮
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                    <div className="text-right shrink-0">
-                                                        <span className="text-sm font-semibold text-indigo-300 font-mono">
-                                                            +{part.price.toLocaleString()} ₮
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </div>
                                     </div>
 
@@ -435,26 +439,7 @@ export function IpodDannyPage() {
                                             </div>
                                         </div>
 
-                                        {/* Conditionally show shipping address */}
-                                        <AnimatePresence>
-                                            {selectedParts.shipping && (
-                                                <motion.div 
-                                                    initial={{ opacity: 0, height: 0 }}
-                                                    animate={{ opacity: 1, height: 'auto' }}
-                                                    exit={{ opacity: 0, height: 0 }}
-                                                    className="space-y-2 overflow-hidden"
-                                                >
-                                                    <label className="text-xs font-mono uppercase text-neutral-400">Хүргэлтийн хаяг (Delivery Address)</label>
-                                                    <input 
-                                                        type="text" 
-                                                        placeholder="Дүүрэг, хороо, гудамж, байр, тоот хаяг" 
-                                                        value={address}
-                                                        onChange={(e) => setAddress(e.target.value)}
-                                                        className="w-full px-4 py-3 bg-neutral-950 border border-white/5 hover:border-white/10 focus:border-indigo-500 focus:outline-none rounded-xl text-sm transition-all"
-                                                    />
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                        {/* Delivery address removed - pick-up only */}
 
                                         <div className="space-y-2">
                                             <label className="text-xs font-mono uppercase text-neutral-400">Тэмдэглэл / Нэмэлт тайлбар (Notes)</label>
