@@ -10,7 +10,7 @@ const PARTS_LIST = [
     { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true },
     { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true },
     { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts' },
-    { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ (Хятадаас Монгол руу).', price: 15000, category: 'service' },
+    { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 15000, category: 'service' },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
 ];
 
