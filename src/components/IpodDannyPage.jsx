@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 const RECEIVER_EMAIL = "chuluunbaatar@gmail.com";
 
 const PARTS_LIST = [
-    { id: 'lcd', name: 'Original Disassembly LCD Screen', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts' },
-    { id: 'battery', name: '650mAh Thin Li-Po Battery', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts' },
-    { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true },
-    { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true },
-    { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts' },
+    { id: 'lcd', name: 'Original Disassembly LCD Screen', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts', image: '/lcd.jpg' },
+    { id: 'battery', name: '650mAh Thin Li-Po Battery', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts', image: '/battery.jpg' },
+    { id: 'faceplate', name: 'Faceplate Metal', description: 'Металл урд гэх (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
+    { id: 'center', name: 'Center Button', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
+    { id: 'backplate', name: 'New Thin Universal Silver Backplate', description: 'Нимгэн мөнгөлөг арын гэх (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts', image: '/backplate.jpg' },
     { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 15000, category: 'service' },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
 ];
@@ -38,6 +38,15 @@ export function IpodDannyPage() {
     // State for submit
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [totalPrice, setTotalPrice] = useState(280000);
+
+    // Lightbox Modal States
+    const [activePhoto, setActivePhoto] = useState(null);
+    const [imageError, setImageError] = useState(false);
+
+    // Reset error when active photo changes
+    useEffect(() => {
+        setImageError(false);
+    }, [activePhoto]);
 
     // Calculate total price automatically
     useEffect(() => {
@@ -320,6 +329,23 @@ export function IpodDannyPage() {
                                                             <h4 className="font-bold text-sm text-neutral-100">{part.name}</h4>
                                                             <p className="text-xs text-neutral-400 mt-1 max-w-md leading-relaxed">{part.description}</p>
                                                             
+                                                            {part.image && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setActivePhoto({ url: part.image, title: part.name, filename: part.image.substring(1) });
+                                                                    }}
+                                                                    className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer w-fit"
+                                                                >
+                                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                                        <circle cx="12" cy="13" r="4"></circle>
+                                                                    </svg>
+                                                                    Зураг харах (View Photo)
+                                                                </button>
+                                                            )}
+
                                                             {/* Color selections if enabled */}
                                                             {selectedParts[part.id] && part.hasColor && (
                                                                 <div 
@@ -501,6 +527,78 @@ export function IpodDannyPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Lightbox Modal */}
+            <AnimatePresence>
+                {activePhoto && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setActivePhoto(null)}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ type: "spring", duration: 0.4 }}
+                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                            className="relative max-w-2xl w-full bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 cursor-default flex flex-col"
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setActivePhoto(null)}
+                                className="absolute top-4 right-4 bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-400 hover:text-white p-2 rounded-full transition-all cursor-pointer z-10"
+                                title="Хаах"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+
+                            {/* Title & Info */}
+                            <div className="mb-4">
+                                <h3 className="text-base font-bold text-white tracking-wide pr-10">{activePhoto.title}</h3>
+                                <p className="text-[10px] text-neutral-500 font-mono mt-0.5">Файлын зам: public/{activePhoto.filename}</p>
+                            </div>
+
+                            {/* Image Container */}
+                            <div className="relative w-full aspect-video md:aspect-[4/3] bg-neutral-950/40 rounded-2xl overflow-hidden flex items-center justify-center border border-white/5 min-h-[280px]">
+                                {!imageError ? (
+                                    <img
+                                        src={activePhoto.url}
+                                        alt={activePhoto.title}
+                                        onError={() => setImageError(true)}
+                                        className="max-h-[60vh] max-w-full object-contain rounded-lg shadow-md"
+                                    />
+                                ) : (
+                                    <div className="p-6 text-center max-w-md flex flex-col items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0">
+                                            ⚠️
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-white text-sm">Зураг оруулаагүй байна</h4>
+                                            <p className="text-xs text-neutral-400 mt-2 leading-relaxed">
+                                                Энэ эд ангийн бодит зургийг харуулахын тулд төслийн <code className="bg-neutral-800 px-1.5 py-0.5 rounded text-neutral-200 text-[11px] font-mono">public/</code> хавтас руу <code className="bg-neutral-800 px-1.5 py-0.5 rounded text-indigo-300 text-[11px] font-mono">{activePhoto.filename}</code> нэртэй зураг байршуулах шаардлагатай.
+                                            </p>
+                                            <div className="mt-4 p-4 bg-neutral-950 rounded-2xl text-left border border-white/5">
+                                                <span className="text-[10px] text-indigo-400 font-mono block mb-1">ЗААВАР (HOW TO ADD):</span>
+                                                <ol className="text-[10px] text-neutral-400 list-decimal pl-4 space-y-1.5">
+                                                    <li>Зургийн файлыг <code className="text-neutral-200 font-mono">{activePhoto.filename}</code> гэж нэрлэх.</li>
+                                                    <li>Үүнийг <code className="text-neutral-200 font-mono">public/</code> хавтсанд хуулах.</li>
+                                                    <li>Өөрчлөлтийг GitHub-руу commit, push хийж байршуулах.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
