@@ -70,6 +70,8 @@ export function IpodDannyPage() {
     // State for submit
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [totalPrice, setTotalPrice] = useState(300000);
+    const [agreeWarranty, setAgreeWarranty] = useState(false);
+    const [showWarrantyModal, setShowWarrantyModal] = useState(false);
 
     // Lightbox Modal States
     const [activePhoto, setActivePhoto] = useState(null);
@@ -945,6 +947,23 @@ export function IpodDannyPage() {
                                         </div>
                                     </div>
 
+                                    {/* Consent Checkbox */}
+                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 flex items-start gap-4 shadow-md">
+                                        <div className="flex items-center h-5 mt-0.5">
+                                            <input
+                                                id="agree-warranty"
+                                                name="agree-warranty"
+                                                type="checkbox"
+                                                checked={agreeWarranty}
+                                                onChange={(e) => setAgreeWarranty(e.target.checked)}
+                                                className="w-5 h-5 text-indigo-600 bg-neutral-950 border-white/10 rounded focus:ring-indigo-500 cursor-pointer"
+                                            />
+                                        </div>
+                                        <label htmlFor="agree-warranty" className="text-sm text-neutral-300 leading-relaxed select-none cursor-pointer">
+                                            Би үйлчилгээний <button type="button" onClick={() => setShowWarrantyModal(true)} className="text-indigo-400 hover:text-indigo-300 underline font-semibold cursor-pointer">баталгааны нөхцөл</button>-ийг уншиж танилцсан бөгөөд зөвшөөрч байна.
+                                        </label>
+                                    </div>
+
                                     {/* Total Price Widget & Submit Button */}
                                     <div className="bg-neutral-900/30 border border-white/5 rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
                                         <div>
@@ -958,8 +977,8 @@ export function IpodDannyPage() {
 
                                         <button
                                             type="submit"
-                                            disabled={status === 'loading'}
-                                            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 disabled:opacity-75 transition-all text-white font-bold rounded-xl text-sm tracking-wide shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.5)] shrink-0 flex items-center justify-center gap-2 cursor-pointer"
+                                            disabled={status === 'loading' || !agreeWarranty}
+                                            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-white font-bold rounded-xl text-sm tracking-wide shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.5)] shrink-0 flex items-center justify-center gap-2 cursor-pointer"
                                         >
                                             {status === 'loading' ? (
                                                 <>
@@ -1054,6 +1073,90 @@ export function IpodDannyPage() {
                                         </div>
                                     </div>
                                 )}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Warranty Terms Modal */}
+            <AnimatePresence>
+                {showWarrantyModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setShowWarrantyModal(false)}
+                        className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ type: "spring", duration: 0.4 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative max-w-2xl w-full bg-neutral-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 md:p-8 cursor-default flex flex-col max-h-[85vh] overflow-y-auto"
+                        >
+                            {/* Close Button */}
+                            <button
+                                type="button"
+                                onClick={() => setShowWarrantyModal(false)}
+                                className="absolute top-4 right-4 bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-400 hover:text-white p-2 rounded-full transition-all cursor-pointer z-10"
+                                title="Хаах"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                                Үйлчилгээний баталгааны нөхцөл
+                            </h3>
+
+                            <div className="space-y-6 text-sm text-neutral-300 leading-relaxed overflow-y-auto pr-2">
+                                {/* Danger/Warning Banner */}
+                                <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 text-xs text-amber-300/90 leading-relaxed space-y-2">
+                                    <h4 className="font-bold flex items-center gap-1.5 text-amber-400 text-sm">
+                                        ⚠️ АНХААРУУЛГА & ХАРИУЦЛАГЫН ХЯЗГААРЛАЛТ:
+                                    </h4>
+                                    <p>• <strong>Мэдээлэл устах санамж:</strong> iPod-ны хатуу дискийг солих үед доторх бүх дуу хөгжим, мэдээлэл устахыг анхааруулж байна. Засварт өгөхөөс өмнө өөрийн дуу хөгжмийг нөөцөлж (backup) авна уу.</p>
+                                    <p>• <strong>Засвар хийх явц болон дараах эрсдэл:</strong> iPod Classic нь 15-20 жилийн настай хуучны төхөөрөмж тул <strong>засвар хийх (задлах, угсрах) явцад</strong> болон засварын дараа солихоор тохироогүй бусад дотоод эд ангиуд (эх хавтангийн чип, дотоод холбогч утас, хэврэгшсэн хуванцар бэхэлгээ г.м) элэгдлийн улмаас өөрөө ажиллагаагүй болох, эвдрэх эрсдэлтэй. <strong>iPod Mongolia нь зөвхөн захиалсан шинэ эд анги болон сольсон ажилдаа хариуцлага хүлээх бөгөөд засварын явцад болон засварын дараа хуучин эд ангиудын элэгдлээс үүдэлтэй үүссэн гэмтэл, ажиллагааны доголдлыг хариуцахгүй.</strong> Үүнээс үүсэх эрсдэлийг захиалагч өөрөө бүрэн хариуцна.</p>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <h4 className="font-bold text-white text-sm">📜 Баталгаат засварт хамаарахгүй нөхцөлүүд:</h4>
+                                    <p className="text-xs text-neutral-400">Шинээр сольсон эд анги болон угсралтын ажилд баталгаа гаргах боловч дараах тохиолдлуудад баталгаа хүчингүй болно:</p>
+                                    <ol className="list-decimal pl-5 space-y-3 text-xs md:text-sm">
+                                        <li>iPod болон түүний эд анги, нэмэлт хэрэгслийг хэрэглэгчид хүлээлгэн өгсөн өдрийн дараа үүссэн механик гэмтэл (нүдэнд ил харагдахуйцаар хагарсан, хайлсан, цуурсан, сэв суусан, тасарсан, шалбарсан, мурийлт тахийлт үүссэн, ус чийг болон шингэн биет орсон, цахилгаан тэжээлийн гэмтэл).</li>
+                                        <li>Гэмтэл нь вирус түүнтэй адилтгах программаас үүдсэн, мэргэжлийн бус аргаар программ хангамж уншуулсан, программ хангамжийн үндсэн тохиргоог өөрчлөх эсвэл дахин хуурамч программ хангамж суулгасан.</li>
+                                        <li>Баталгаат хугацаандаа "iPod Mongolia"-оос өөр албан ёсны бус засвар үйлчилгээний төв, хувь хүнээр засуулсан, оношлуулах байдлаар задарсан.</li>
+                                        <li>Ахуйн болон хувийн хэрэгцээнд зориулсан барааг үйлдвэрийн болон зориулалтын бусаар ашигласан, ашиглах заавар зөрчсөн.</li>
+                                        <li>iPod болон түүний эд анги, нэмэлт хэрэгслийн ашиглалтын зөвлөмжийг зөрчсөнөөс үүссэн болон элэгдэж хуучирсантай холбоотой эвдрэл гэмтэл.</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            {/* Footer Actions */}
+                            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/5 mt-6 shrink-0">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowWarrantyModal(false)}
+                                    className="px-5 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-neutral-400 hover:text-white transition-all text-xs font-semibold cursor-pointer"
+                                >
+                                    Хаах (Close)
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setAgreeWarranty(true);
+                                        setShowWarrantyModal(false);
+                                    }}
+                                    className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all text-xs cursor-pointer shadow-[0_4px_15px_rgba(99,102,241,0.2)]"
+                                >
+                                    Уншиж танилцлаа (Accept)
+                                </button>
                             </div>
                         </motion.div>
                     </motion.div>
