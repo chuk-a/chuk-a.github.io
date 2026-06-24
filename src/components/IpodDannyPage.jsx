@@ -42,20 +42,20 @@ const OTHER_PARTS = [
 export function IpodDannyPage() {
     // Selection state
     const [selectedParts, setSelectedParts] = useState({
-        lcd: true,
-        faceplate: true,
-        center: true,
+        lcd: false,
+        faceplate: false,
+        center: false,
         clickwheel: false,
         headphone_jack: false,
-        case: true,
+        case: false,
         adapter: false,
         bypass: false,
         shipping: true,
         labor: true
     });
 
-    const [batteryOption, setBatteryOption] = useState('battery_650');
-    const [backplateOption, setBackplateOption] = useState('backplate_silver');
+    const [batteryOption, setBatteryOption] = useState('none');
+    const [backplateOption, setBackplateOption] = useState('none');
     const [storageOption, setStorageOption] = useState('none');
 
     const [faceplateColor, setFaceplateColor] = useState('black'); // gold, silver, black, blue, green, red, purple
