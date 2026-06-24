@@ -20,7 +20,7 @@ const BACKPLATE_OPTIONS = [
 ];
 
 const STORAGE_OPTIONS = [
-    { id: 'none', name: 'Үндсэн хатуу дискогоо солихгүй (Stock HDD)', price: 0, description: 'iPod Classic-ийн үндсэн хатуу дискийг хэвээр үлдээнэ.' },
+    { id: 'none', name: 'Үндсэн хатуу дискээ солихгүй (Stock HDD)', price: 0, description: 'iPod Classic-ийн үндсэн хатуу дискийг хэвээр үлдээнэ.' },
     { id: 'sd_128', name: 'Kingston 128GB SD карт', price: 120000, description: 'Kingston брэндийн өндөр хурдны 128GB SD карт.', image: '/sd-128gb.png' },
     { id: 'sd_256', name: 'Kingston 256GB SD карт', price: 200000, description: 'Kingston брэндийн өндөр хурдны 256GB SD карт.', image: '/sd-256gb.png' },
     { id: 'sd_512', name: 'Kingston 512GB SD карт', price: 380000, description: 'Kingston брэндийн өндөр хурдны 512GB SD карт.', image: '/sd-512gb.png' }
