@@ -85,6 +85,9 @@ export function IpodDannyPage() {
                 adapter: false,
                 bypass: false
             }));
+            if (batteryOption === 'battery_2000') {
+                setBatteryOption('battery_650');
+            }
         } else if (storageOption === 'sd_128') {
             setSelectedParts(prev => ({
                 ...prev,
@@ -98,7 +101,7 @@ export function IpodDannyPage() {
                 bypass: true
             }));
         }
-    }, [storageOption]);
+    }, [storageOption, batteryOption]);
 
     // Reset error when active photo changes
     useEffect(() => {
@@ -677,42 +680,58 @@ export function IpodDannyPage() {
                                                 <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.3 Батарей (Battery Option)</h4>
                                                 
                                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                    {BATTERY_OPTIONS.map((opt) => (
-                                                        <div
-                                                            key={opt.id}
-                                                            onClick={() => setBatteryOption(opt.id)}
-                                                            className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
-                                                                batteryOption === opt.id
-                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]'
-                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
-                                                            }`}
-                                                        >
-                                                            <div>
-                                                                <div className="flex justify-between items-start gap-2">
-                                                                    <span className="font-bold text-sm text-neutral-100">{opt.name}</span>
+                                                    {BATTERY_OPTIONS.map((opt) => {
+                                                        const isBattery2000Disabled = opt.id === 'battery_2000' && storageOption === 'none';
+                                                        return (
+                                                            <div
+                                                                key={opt.id}
+                                                                onClick={() => {
+                                                                    if (isBattery2000Disabled) {
+                                                                        alert('Үндсэн хатуу дискийг (Stock HDD) солихгүйгээр 2000mAh өндөр багтаамжтай батарей суулгах зайгүй тул боломжгүй. Та эхлээд хатуу дискийг SD карт болгож солих сонголтыг хийнэ үү.');
+                                                                        return;
+                                                                    }
+                                                                    setBatteryOption(opt.id);
+                                                                }}
+                                                                className={`p-4 rounded-xl border transition-all select-none flex flex-col justify-between ${
+                                                                    isBattery2000Disabled
+                                                                        ? 'opacity-45 cursor-not-allowed bg-neutral-950/20 border-white/5'
+                                                                        : batteryOption === opt.id
+                                                                            ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)] cursor-pointer'
+                                                                            : 'bg-neutral-900/10 border-white/5 hover:border-white/10 cursor-pointer'
+                                                                }`}
+                                                            >
+                                                                <div>
+                                                                    <div className="flex justify-between items-start gap-2">
+                                                                        <span className="font-bold text-sm text-neutral-100">{opt.name}</span>
+                                                                    </div>
+                                                                    <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">{opt.description}</p>
+                                                                    {isBattery2000Disabled && (
+                                                                        <p className="text-[10px] text-amber-400/90 font-mono mt-2 flex items-center gap-1 font-semibold">
+                                                                            ⚠️ Хатуу диск солих шаардлагатай
+                                                                        </p>
+                                                                    )}
                                                                 </div>
-                                                                <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">{opt.description}</p>
+                                                                
+                                                                <div className="mt-3 flex items-center justify-between">
+                                                                    <span className="text-xs font-semibold text-indigo-300 font-mono">
+                                                                        {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
+                                                                    </span>
+                                                                    {opt.image && (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
+                                                                            }}
+                                                                            className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                                                                        >
+                                                                            Зураг
+                                                                        </button>
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                            
-                                                            <div className="mt-3 flex items-center justify-between">
-                                                                <span className="text-xs font-semibold text-indigo-300 font-mono">
-                                                                    {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
-                                                                </span>
-                                                                {opt.image && (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
-                                                                        }}
-                                                                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors cursor-pointer"
-                                                                    >
-                                                                        Зураг
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    ))}
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
 
