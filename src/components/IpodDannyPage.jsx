@@ -31,6 +31,7 @@ const OTHER_PARTS = [
     { id: 'faceplate', name: 'Металл урд гэр (Faceplate)', description: 'Металл урд гэр (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
     { id: 'center', name: 'Голын товчлуур (Center Button)', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', image: '/faceplate-colors.jpg' },
     { id: 'clickwheel', name: 'Голын Click Wheel', description: 'iPod Classic-ийн Click wheel дугуй удирдлага солих.', price: 40000, category: 'parts', hasColor: true, image: '/what-higher-power-decided-that-these-are-the-only-colors-v0-eq44pqy192ce1.jpg.webp' },
+    { id: 'headphone_jack', name: 'Чихэвч болон lock button солих', description: 'Чихэвчний оролт (headphone jack) болон Hold (lock) товчлуурын угсралт солих.', price: 30000, category: 'parts' },
     { id: 'case', name: 'Тунгалаг кэйс (Clear Case)', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case-completed.webp' },
     { id: 'adapter', name: 'SD card adapter', description: 'SD картны адаптер (iFlash эсвэл ижил төрлийн олон картны үүр бүхий адаптер).', price: 60000, category: 'parts' },
     { id: 'bypass', name: '128GB хязгаарлалт давах (Bypass Limit)', description: 'iPod Classic 6 дахь үеийн (6th gen) хувьд 128GB-аас дээш багтаамжтай карт (256GB эсвэл 512GB) ашиглах үед 128GB-ийн хязгаарлалтыг тойрч гарах систем суулгах.', price: 20000, category: 'parts' },
@@ -45,6 +46,7 @@ export function IpodDannyPage() {
         faceplate: true,
         center: true,
         clickwheel: false,
+        headphone_jack: false,
         case: true,
         adapter: false,
         bypass: false,
@@ -110,6 +112,7 @@ export function IpodDannyPage() {
         if (selectedParts.faceplate) total += 40000;
         if (selectedParts.center) total += 10000;
         if (selectedParts.clickwheel) total += 40000;
+        if (selectedParts.headphone_jack) total += 30000;
         if (selectedParts.case) total += 20000;
         if (selectedParts.adapter) total += 60000;
         if (selectedParts.bypass) total += 20000;
@@ -147,6 +150,7 @@ export function IpodDannyPage() {
         if (selectedParts.faceplate) selectedList.push(`- Металл урд гэр [Өнгө: ${faceplateColor.toUpperCase()}] (40,000 ₮)`);
         if (selectedParts.center) selectedList.push(`- Голын товчлуур [Өнгө: ${centerColor.toUpperCase()}] (10,000 ₮)`);
         if (selectedParts.clickwheel) selectedList.push(`- Click wheel [Өнгө: ${clickwheelColor.toUpperCase()}] (40,000 ₮)`);
+        if (selectedParts.headphone_jack) selectedList.push(`- Чихэвч болон lock button солих (30,000 ₮)`);
         
         const storage = STORAGE_OPTIONS.find(s => s.id === storageOption);
         if (storage && storage.price > 0) selectedList.push(`- ${storage.name} (${storage.price.toLocaleString()} ₮)`);
@@ -245,6 +249,7 @@ export function IpodDannyPage() {
         if (storageOption !== 'none') upgradesCount++;
         if (selectedParts.faceplate) upgradesCount++;
         if (selectedParts.clickwheel) upgradesCount++;
+        if (selectedParts.headphone_jack) upgradesCount++;
         if (backplateOption !== 'none') upgradesCount++;
         if (selectedParts.lcd) upgradesCount++;
 
@@ -478,7 +483,7 @@ export function IpodDannyPage() {
                                             <div className="space-y-4">
                                                 <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.1 Урд хэсэг болон Дэлгэц (Front & Screen)</h4>
                                                 <div className="space-y-3">
-                                                    {OTHER_PARTS.filter(p => p.category === 'parts' && ['lcd', 'faceplate', 'center', 'clickwheel'].includes(p.id)).map((part) => (
+                                                    {OTHER_PARTS.filter(p => p.category === 'parts' && ['lcd', 'faceplate', 'center', 'clickwheel', 'headphone_jack'].includes(p.id)).map((part) => (
                                                         <div 
                                                             key={part.id}
                                                             onClick={() => handlePartToggle(part.id)}
