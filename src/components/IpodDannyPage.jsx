@@ -26,6 +26,18 @@ const STORAGE_OPTIONS = [
     { id: 'sd_512', name: 'Kingston 512GB SD карт', price: 380000, description: 'Kingston брэндийн өндөр хурдны 512GB SD карт.', image: '/sd-adapter.webp' }
 ];
 
+const OTHER_PARTS = [
+    { id: 'lcd', name: 'LCD дэлгэц (Оригиналь задаргаа)', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts', image: '/lcd.jpg' },
+    { id: 'faceplate', name: 'Металл урд гэр (Faceplate)', description: 'Металл урд гэр (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
+    { id: 'center', name: 'Голын товчлуур (Center Button)', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
+    { id: 'clickwheel', name: 'Голын Click Wheel', description: 'iPod Classic-ийн Click wheel дугуй удирдлага солих.', price: 40000, category: 'parts', image: '/what-higher-power-decided-that-these-are-the-only-colors-v0-eq44pqy192ce1.jpg.webp' },
+    { id: 'case', name: 'Тунгалаг кэйс (Clear Case)', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case.jpg' },
+    { id: 'adapter', name: 'SD card adapter', description: 'SD картны адаптер (iFlash эсвэл ижил төрлийн олон картны үүр бүхий адаптер).', price: 60000, category: 'parts', image: '/sd-adapter.webp' },
+    { id: 'bypass', name: '128GB хязгаарлалт давах (Bypass Limit)', description: 'iPod Classic 6 дахь үеийн (6th gen) хувьд 128GB-аас дээш багтаамжтай карт (256GB эсвэл 512GB) ашиглах үед 128GB-ийн хязгаарлалтыг тойрч гарах систем суулгах.', price: 20000, category: 'parts' },
+    { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 20000, category: 'service', isRequired: true },
+    { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 60000, category: 'service', isRequired: true }
+];
+
 export function IpodDannyPage() {
     // Selection state
     const [selectedParts, setSelectedParts] = useState({
@@ -302,7 +314,7 @@ export function IpodDannyPage() {
                                             <div className="flex-1 flex items-center justify-between mt-2">
                                                 <div className="flex flex-col text-[10px] font-bold gap-1 w-[60%]">
                                                     <span className="bg-indigo-600 text-white px-1.5 py-0.5 rounded-[3px] w-fit">Now Playing</span>
-                                                    <span className="truncate">Chuka's Mix</span>
+                                                    <span className="truncate">Chuka&apos;s Mix</span>
                                                     <span className="text-[8px] opacity-60 truncate">Endurance Space</span>
                                                 </div>
                                                 <div className="w-12 h-12 bg-neutral-300 rounded border border-neutral-400 flex items-center justify-center font-bold text-[18px] text-neutral-500 shadow-sm">
