@@ -303,7 +303,7 @@ export function IpodDannyPage() {
                     <img 
                         src="/ipod-mongolia-logo.jpg" 
                         alt="iPod Mongolia Logo" 
-                        className="h-28 w-auto mb-2 invert mix-blend-screen opacity-90 hover:opacity-100 transition-opacity"
+                        className="h-40 w-auto mb-2 invert mix-blend-screen opacity-90 hover:opacity-100 transition-opacity"
                     />
                     <span className="text-[11px] font-mono tracking-[0.25em] text-indigo-400 uppercase">Custom Workshop</span>
                     <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mt-2 bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
