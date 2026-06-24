@@ -29,8 +29,8 @@ const STORAGE_OPTIONS = [
 const OTHER_PARTS = [
     { id: 'lcd', name: 'LCD дэлгэц (Оригиналь задаргаа)', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts', image: '/lcd.jpg' },
     { id: 'faceplate', name: 'Металл урд гэр (Faceplate)', description: 'Металл урд гэр (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
-    { id: 'center', name: 'Голын товчлуур (Center Button)', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
-    { id: 'clickwheel', name: 'Голын Click Wheel', description: 'iPod Classic-ийн Click wheel дугуй удирдлага солих.', price: 40000, category: 'parts', image: '/what-higher-power-decided-that-these-are-the-only-colors-v0-eq44pqy192ce1.jpg.webp' },
+    { id: 'center', name: 'Голын товчлуур (Center Button)', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', image: '/faceplate-colors.jpg' },
+    { id: 'clickwheel', name: 'Голын Click Wheel', description: 'iPod Classic-ийн Click wheel дугуй удирдлага солих.', price: 40000, category: 'parts', hasColor: true, image: '/what-higher-power-decided-that-these-are-the-only-colors-v0-eq44pqy192ce1.jpg.webp' },
     { id: 'case', name: 'Тунгалаг кэйс (Clear Case)', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case-completed.webp' },
     { id: 'adapter', name: 'SD card adapter', description: 'SD картны адаптер (iFlash эсвэл ижил төрлийн олон картны үүр бүхий адаптер).', price: 60000, category: 'parts' },
     { id: 'bypass', name: '128GB хязгаарлалт давах (Bypass Limit)', description: 'iPod Classic 6 дахь үеийн (6th gen) хувьд 128GB-аас дээш багтаамжтай карт (256GB эсвэл 512GB) ашиглах үед 128GB-ийн хязгаарлалтыг тойрч гарах систем суулгах.', price: 20000, category: 'parts' },
@@ -57,7 +57,8 @@ export function IpodDannyPage() {
     const [storageOption, setStorageOption] = useState('none');
 
     const [faceplateColor, setFaceplateColor] = useState('black'); // gold, silver, black, blue, green, red, purple
-    const [centerColor, setCenterColor] = useState('black'); // gold, silver, red, blue, green, purple, yellow, black
+    const [clickwheelColor, setClickwheelColor] = useState('black');
+    const centerColor = faceplateColor;
     
     // Form fields
     const [name, setName] = useState('');
@@ -145,7 +146,7 @@ export function IpodDannyPage() {
         if (selectedParts.lcd) selectedList.push(`- LCD дэлгэц (110,000 ₮)`);
         if (selectedParts.faceplate) selectedList.push(`- Металл урд гэр [Өнгө: ${faceplateColor.toUpperCase()}] (40,000 ₮)`);
         if (selectedParts.center) selectedList.push(`- Голын товчлуур [Өнгө: ${centerColor.toUpperCase()}] (10,000 ₮)`);
-        if (selectedParts.clickwheel) selectedList.push(`- Click wheel (40,000 ₮)`);
+        if (selectedParts.clickwheel) selectedList.push(`- Click wheel [Өнгө: ${clickwheelColor.toUpperCase()}] (40,000 ₮)`);
         
         const storage = STORAGE_OPTIONS.find(s => s.id === storageOption);
         if (storage && storage.price > 0) selectedList.push(`- ${storage.name} (${storage.price.toLocaleString()} ₮)`);
@@ -186,6 +187,7 @@ export function IpodDannyPage() {
             Нийт_дүн: `${totalPrice.toLocaleString()} ₮`,
             Faceplate_Өнгө: faceplateColor,
             Center_Button_Өнгө: centerColor,
+            Clickwheel_Өнгө: clickwheelColor,
         };
 
         try {
@@ -341,11 +343,28 @@ export function IpodDannyPage() {
                                 </div>
 
                                 {/* Click Wheel */}
-                                <div className="w-40 h-40 rounded-full bg-neutral-800 border-2 border-neutral-700/30 flex items-center justify-center relative mt-10 shadow-[inset_0_2px_8px_rgba(0,0,0,0.5),0_8px_16px_rgba(0,0,0,0.4)]">
-                                    <span className="absolute top-2.5 text-[8px] font-mono font-bold text-neutral-400/80 tracking-widest pointer-events-none">MENU</span>
-                                    <span className="absolute bottom-2.5 text-[8px] font-bold text-neutral-400/80 pointer-events-none">▶||</span>
-                                    <span className="absolute right-3.5 text-[8px] font-bold text-neutral-400/80 pointer-events-none">▶▶|</span>
-                                    <span className="absolute left-3.5 text-[8px] font-bold text-neutral-400/80 pointer-events-none">|◀◀</span>
+                                <div 
+                                    className="w-40 h-40 rounded-full border-2 border-neutral-700/30 flex items-center justify-center relative mt-10 shadow-[inset_0_2px_8px_rgba(0,0,0,0.5),0_8px_16px_rgba(0,0,0,0.4)] transition-colors duration-300"
+                                    style={{
+                                        backgroundColor: clickwheelColor === 'silver' 
+                                            ? '#e5e5e5' 
+                                            : clickwheelColor === 'red' 
+                                                ? '#dc2626' 
+                                                : '#262626'
+                                    }}
+                                >
+                                    <span className={`absolute top-2.5 text-[8px] font-mono font-bold tracking-widest pointer-events-none ${
+                                        clickwheelColor === 'silver' ? 'text-neutral-600' : 'text-neutral-400/80'
+                                    }`}>MENU</span>
+                                    <span className={`absolute bottom-2.5 text-[8px] font-bold pointer-events-none ${
+                                        clickwheelColor === 'silver' ? 'text-neutral-600' : 'text-neutral-400/80'
+                                    }`}>▶||</span>
+                                    <span className={`absolute right-3.5 text-[8px] font-bold pointer-events-none ${
+                                        clickwheelColor === 'silver' ? 'text-neutral-600' : 'text-neutral-400/80'
+                                    }`}>▶▶|</span>
+                                    <span className={`absolute left-3.5 text-[8px] font-bold pointer-events-none ${
+                                        clickwheelColor === 'silver' ? 'text-neutral-600' : 'text-neutral-400/80'
+                                    }`}>|◀◀</span>
 
                                     {/* Center Button */}
                                     <div 
@@ -489,10 +508,10 @@ export function IpodDannyPage() {
                                                                                         type="button"
                                                                                         onClick={() => {
                                                                                             if (part.id === 'faceplate') setFaceplateColor(color);
-                                                                                            if (part.id === 'center') setCenterColor(color);
+                                                                                            if (part.id === 'clickwheel') setClickwheelColor(color);
                                                                                         }}
                                                                                         className={`w-5 h-5 rounded-full border transition-all relative ${
-                                                                                            (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
+                                                                                            (part.id === 'faceplate' ? faceplateColor === color : clickwheelColor === color)
                                                                                                 ? 'ring-2 ring-indigo-500 border-transparent scale-110'
                                                                                                 : 'border-white/20'
                                                                                         }`}
