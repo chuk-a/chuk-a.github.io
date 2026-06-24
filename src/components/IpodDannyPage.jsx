@@ -142,10 +142,14 @@ export function IpodDannyPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#070708] text-neutral-100 font-sans relative pb-20 selection:bg-indigo-500 selection:text-white">
-            {/* Background Glows */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-950/15 blur-[150px] pointer-events-none" />
+        <div 
+            className="min-h-screen text-neutral-100 font-sans relative pb-20 selection:bg-indigo-500 selection:text-white"
+            style={{
+                backgroundColor: '#070708',
+                backgroundImage: 'radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.08) 0%, transparent 50%)',
+                backgroundAttachment: 'fixed'
+            }}
+        >
 
             <div className="max-w-6xl mx-auto px-4 pt-8">
                 {/* Back Link */}
@@ -177,19 +181,18 @@ export function IpodDannyPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-6">
                     {/* Live Preview Column */}
                     <div className="lg:col-span-5 flex flex-col items-center justify-center lg:sticky lg:top-12">
-                        <div className="w-full max-w-sm bg-neutral-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-8 flex flex-col items-center shadow-2xl relative">
+                        <div className="w-full max-w-sm bg-neutral-900/80 md:bg-neutral-900/40 md:backdrop-blur-xl border border-white/5 rounded-3xl p-8 flex flex-col items-center shadow-2xl relative">
                             <span className="absolute top-4 right-4 bg-white/5 text-[9px] font-mono px-2.5 py-1 rounded-full border border-white/5 text-neutral-400 select-none">
                                 LIVE PREVIEW
                             </span>
                             
                             {/* CSS iPod Classic Container */}
-                            <motion.div 
+                            <div 
                                 className="w-60 h-96 rounded-[32px] border-4 border-neutral-800/80 shadow-2xl flex flex-col items-center relative overflow-hidden mt-6"
                                 style={{ 
                                     background: getFaceplateHex(),
                                     boxShadow: 'inset 0 4px 10px rgba(255,255,255,0.15), 0 20px 40px rgba(0,0,0,0.8)' 
                                 }}
-                                layout
                             >
                                 {/* Highlight overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none rounded-[28px]" />
@@ -254,7 +257,7 @@ export function IpodDannyPage() {
                                         style={{ backgroundColor: getCenterHex() }}
                                     />
                                 </div>
-                            </motion.div>
+                            </div>
 
                             {/* Backplate Indicator */}
                             <div className="mt-6 text-center">
@@ -308,7 +311,7 @@ export function IpodDannyPage() {
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-8">
                                     {/* Upgrade Options Card */}
-                                    <div className="bg-neutral-900/20 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8">
+                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8">
                                         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                             1. Эд анги болон Сайжруулалтууд (Upgrades)
@@ -411,7 +414,7 @@ export function IpodDannyPage() {
                                     </div>
 
                                     {/* Checkout & Contact Information */}
-                                    <div className="bg-neutral-900/20 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-6">
+                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-6">
                                         <h3 className="text-lg font-bold text-white flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                             2. Захиалагчийн мэдээлэл (Customer Details)
@@ -457,7 +460,7 @@ export function IpodDannyPage() {
                                     </div>
 
                                     {/* Payment & Contact Info Card */}
-                                    <div className="bg-neutral-900/20 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-4">
+                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-4">
                                         <h3 className="text-lg font-bold text-white flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                             3. Төлбөр хийх болон Холбоо барих мэдээлэл (Payment & Contact)
