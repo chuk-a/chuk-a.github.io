@@ -116,7 +116,7 @@ export function IpodDannyPage() {
         if (selectedParts.case) total += 20000;
         if (selectedParts.adapter) total += 60000;
         if (selectedParts.bypass) total += 20000;
-        if (selectedParts.shipping) total += 20000;
+        if (selectedParts.shipping) total += getShippingPrice();
         if (selectedParts.labor) total += getLaborPrice();
         
         // Battery option
@@ -164,7 +164,7 @@ export function IpodDannyPage() {
         if (backplate && backplate.price > 0) selectedList.push(`- ${backplate.name} (${backplate.price.toLocaleString()} ₮)`);
         
         if (selectedParts.case) selectedList.push(`- Тунгалаг кэйс (20,000 ₮)`);
-        if (selectedParts.shipping) selectedList.push(`- Улс хоорондын тээвэр (20,000 ₮)`);
+        if (selectedParts.shipping) selectedList.push(`- Улс хоорондын тээвэр (${getShippingPrice().toLocaleString()} ₮)`);
         if (selectedParts.labor) selectedList.push(`- Ажлын хөлс (${getLaborPrice().toLocaleString()} ₮)`);
         
         return selectedList.join('\n');
@@ -256,6 +256,20 @@ export function IpodDannyPage() {
         if (upgradesCount <= 2) return 30000;
         if (upgradesCount >= 5) return 90000;
         return 60000;
+    };
+
+    const getShippingPrice = () => {
+        let upgradesCount = 0;
+        if (batteryOption !== 'none') upgradesCount++;
+        if (storageOption !== 'none') upgradesCount++;
+        if (selectedParts.faceplate) upgradesCount++;
+        if (selectedParts.clickwheel) upgradesCount++;
+        if (selectedParts.headphone_jack) upgradesCount++;
+        if (backplateOption !== 'none') upgradesCount++;
+        if (selectedParts.lcd) upgradesCount++;
+
+        if (upgradesCount <= 2) return 10000;
+        return 20000;
     };
 
     return (
@@ -818,12 +832,17 @@ export function IpodDannyPage() {
                                                                                 * Сонгосон ажлууд дээр үндэслэн автоматаар бодов.
                                                                             </span>
                                                                         )}
+                                                                        {part.id === 'shipping' && (
+                                                                            <span className="block text-indigo-400 mt-1 font-mono text-[10px]">
+                                                                                * Сонгосон ажлууд дээр үндэслэн автоматаар бодов.
+                                                                            </span>
+                                                                        )}
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                             <div className="text-right shrink-0">
                                                                 <span className="text-sm font-semibold text-indigo-400/75 font-mono">
-                                                                    +{((part.id === 'labor' ? getLaborPrice() : part.price)).toLocaleString()} ₮
+                                                                    +{((part.id === 'labor' ? getLaborPrice() : part.id === 'shipping' ? getShippingPrice() : part.price)).toLocaleString()} ₮
                                                                 </span>
                                                             </div>
                                                         </div>
