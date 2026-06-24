@@ -4,32 +4,48 @@ import { Link } from 'react-router-dom';
 
 const RECEIVER_EMAIL = "chuluunbaatar@gmail.com";
 
-const PARTS_LIST = [
-    { id: 'lcd', name: 'LCD дэлгэц (Оригиналь задаргаа)', description: 'Оригиналь задаргааны LCD дэлгэц. Пиксель бүрэн бүтэн (үхсэн пиксельгүй). Өнгө, гэрэлтүүлэг маш сайн биш байж магадгүй.', price: 110000, category: 'parts', image: '/lcd.jpg' },
-    { id: 'battery', name: 'Нимгэн Li-Po Батарей (650mAh)', description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', price: 25000, category: 'parts', image: '/battery.jpg' },
-    { id: 'faceplate', name: 'Металл урд гэр (Faceplate)', description: 'Металл урд гэр (Faceplate). Алтлаг, мөнгөлөг, хар өнгөний сонголттой.', price: 40000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
-    { id: 'center', name: 'Голын товчлуур (Center Button)', description: 'Зөвхөн голын жижиг дугуй товчлуур. (MENU бичигтэй том Clickwheel ороогүй болохыг анхаарна уу!)', price: 10000, category: 'parts', hasColor: true, image: '/faceplate-colors.jpg' },
-    { id: 'backplate', name: 'Нимгэн арын мөнгөлөг гэр (Backplate)', description: 'Нимгэн мөнгөлөг арын гэр (Backplate). Гялалзсан төмөр гадаргуутай.', price: 30000, category: 'parts', image: '/backplate.png' },
-    { id: 'case', name: 'Тунгалаг кэйс (Clear Case)', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case.jpg' },
-    { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 15000, category: 'service' },
-    { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 50000, category: 'service' }
+const BATTERY_OPTIONS = [
+    { id: 'none', name: 'Үндсэн батарейг солихгүй (Stock Battery)', price: 0, description: 'iPod Classic-ийн үндсэн батарейг хэвээр үлдээнэ.' },
+    { id: 'battery_650', name: 'Нимгэн Li-Po Батарей (650mAh)', price: 25000, description: 'Нэмэлт нимгэн лити-полимер батарей. Багтаамж сайтай, цэнэгээ сайн барина.', image: '/battery.jpg' },
+    { id: 'battery_2000', name: 'Нимгэн Li-Po Батарей (2000mAh)', price: 35000, description: 'Өндөр багтаамжтай нимгэн лити-полимер батарей. Маш удаан цэнэгээ барина.', image: '/battery-2000mah.webp' }
+];
+
+const BACKPLATE_OPTIONS = [
+    { id: 'none', name: 'Үндсэн арын гэрийг солихгүй (Stock Backplate)', price: 0, description: 'iPod Classic-ийн үндсэн арын гэрийг хэвээр үлдээнэ.' },
+    { id: 'backplate_silver', name: 'Нимгэн мөнгөлөг арын гэр (Universal Silver)', price: 30000, description: 'Нимгэн мөнгөлөг арын гэр. Гялалзсан төмөр гадаргуутай.', image: '/backplate.png' },
+    { id: 'u2_gold', name: 'U2 арын гэр (Алтлаг / Gold)', price: 45000, description: 'U2 хэвлэлттэй алтлаг арын гэр. Ардаа U2 хамтлагийн гарын үсэгтэй.', image: '/u2-gold.webp' },
+    { id: 'u2_silver', name: 'U2 арын гэр (Мөнгөлөг / Silver)', price: 45000, description: 'U2 хэвлэлттэй мөнгөлөг арын гэр. Ардаа U2 хамтлагийн гарын үсэгтэй.', image: '/u2-silver.webp' },
+    { id: 'u2_black', name: 'U2 арын гэр (Хар / Black)', price: 45000, description: 'U2 хэвлэлттэй хар арын гэр. Ардаа U2 хамтлагийн гарын үсэгтэй.', image: '/u2-black.webp' },
+    { id: 'u2_rainbow', name: 'U2 арын гэр (Солонгон / Rainbow)', price: 45000, description: 'U2 хэвлэлттэй солонгон өнгийн арын гэр. Ардаа U2 хамтлагийн гарын үсэгтэй.', image: '/u2-rainbow.jpg' }
+];
+
+const STORAGE_OPTIONS = [
+    { id: 'none', name: 'Үндсэн хатуу дискогоо солихгүй (Stock HDD)', price: 0, description: 'iPod Classic-ийн үндсэн хатуу дискийг хэвээр үлдээнэ.' },
+    { id: 'sd_128', name: 'Kingston 128GB SD карт', price: 120000, description: 'Kingston брэндийн өндөр хурдны 128GB SD карт.', image: '/sd-adapter.webp' },
+    { id: 'sd_256', name: 'Kingston 256GB SD карт', price: 200000, description: 'Kingston брэндийн өндөр хурдны 256GB SD карт.', image: '/sd-adapter.webp' },
+    { id: 'sd_512', name: 'Kingston 512GB SD карт', price: 380000, description: 'Kingston брэндийн өндөр хурдны 512GB SD карт.', image: '/sd-adapter.webp' }
 ];
 
 export function IpodDannyPage() {
-    // Select all parts by default (matching Danny's current order)
+    // Selection state
     const [selectedParts, setSelectedParts] = useState({
         lcd: true,
-        battery: true,
         faceplate: true,
         center: true,
-        backplate: true,
+        clickwheel: false,
         case: true,
+        adapter: false,
+        bypass: false,
         shipping: true,
         labor: true
     });
 
-    const [faceplateColor, setFaceplateColor] = useState('black'); // gold, silver, black
-    const [centerColor, setCenterColor] = useState('black'); // gold, silver, black
+    const [batteryOption, setBatteryOption] = useState('battery_650');
+    const [backplateOption, setBackplateOption] = useState('backplate_silver');
+    const [storageOption, setStorageOption] = useState('none');
+
+    const [faceplateColor, setFaceplateColor] = useState('black'); // gold, silver, black, blue, green, red, purple
+    const [centerColor, setCenterColor] = useState('black'); // gold, silver, red, blue, green, purple, yellow, black
     
     // Form fields
     const [name, setName] = useState('');
@@ -44,6 +60,29 @@ export function IpodDannyPage() {
     const [activePhoto, setActivePhoto] = useState(null);
     const [imageError, setImageError] = useState(false);
 
+    // Auto-configure adapter and bypass based on storage choice
+    useEffect(() => {
+        if (storageOption === 'none') {
+            setSelectedParts(prev => ({
+                ...prev,
+                adapter: false,
+                bypass: false
+            }));
+        } else if (storageOption === 'sd_128') {
+            setSelectedParts(prev => ({
+                ...prev,
+                adapter: true,
+                bypass: false
+            }));
+        } else if (storageOption === 'sd_256' || storageOption === 'sd_512') {
+            setSelectedParts(prev => ({
+                ...prev,
+                adapter: true,
+                bypass: true
+            }));
+        }
+    }, [storageOption]);
+
     // Reset error when active photo changes
     useEffect(() => {
         setImageError(false);
@@ -51,11 +90,33 @@ export function IpodDannyPage() {
 
     // Calculate total price automatically
     useEffect(() => {
-        const total = PARTS_LIST.reduce((sum, item) => {
-            return selectedParts[item.id] ? sum + item.price : sum;
-        }, 0);
+        let total = 0;
+        
+        // Base checkboxes
+        if (selectedParts.lcd) total += 110000;
+        if (selectedParts.faceplate) total += 40000;
+        if (selectedParts.center) total += 10000;
+        if (selectedParts.clickwheel) total += 40000;
+        if (selectedParts.case) total += 20000;
+        if (selectedParts.adapter) total += 60000;
+        if (selectedParts.bypass) total += 20000;
+        if (selectedParts.shipping) total += 20000;
+        if (selectedParts.labor) total += 60000;
+        
+        // Battery option
+        const selectedBattery = BATTERY_OPTIONS.find(b => b.id === batteryOption);
+        if (selectedBattery) total += selectedBattery.price;
+        
+        // Backplate option
+        const selectedBackplate = BACKPLATE_OPTIONS.find(b => b.id === backplateOption);
+        if (selectedBackplate) total += selectedBackplate.price;
+        
+        // Storage option
+        const selectedStorage = STORAGE_OPTIONS.find(s => s.id === storageOption);
+        if (selectedStorage) total += selectedStorage.price;
+
         setTotalPrice(total);
-    }, [selectedParts]);
+    }, [selectedParts, batteryOption, backplateOption, storageOption]);
 
     const handlePartToggle = (id) => {
         if (id === 'shipping' || id === 'labor') return;
@@ -63,6 +124,33 @@ export function IpodDannyPage() {
             ...prev,
             [id]: !prev[id]
         }));
+    };
+
+    // Compile selected parts string
+    const getSelectedPartsSummary = () => {
+        let selectedList = [];
+        
+        if (selectedParts.lcd) selectedList.push(`- LCD дэлгэц (110,000 ₮)`);
+        if (selectedParts.faceplate) selectedList.push(`- Металл урд гэр [Өнгө: ${faceplateColor.toUpperCase()}] (40,000 ₮)`);
+        if (selectedParts.center) selectedList.push(`- Голын товчлуур [Өнгө: ${centerColor.toUpperCase()}] (10,000 ₮)`);
+        if (selectedParts.clickwheel) selectedList.push(`- Click wheel (40,000 ₮)`);
+        
+        const storage = STORAGE_OPTIONS.find(s => s.id === storageOption);
+        if (storage && storage.price > 0) selectedList.push(`- ${storage.name} (${storage.price.toLocaleString()} ₮)`);
+        if (selectedParts.adapter) selectedList.push(`- SD card adapter (60,000 ₮)`);
+        if (selectedParts.bypass) selectedList.push(`- Bypassing 128GB limit (20,000 ₮)`);
+        
+        const battery = BATTERY_OPTIONS.find(b => b.id === batteryOption);
+        if (battery && battery.price > 0) selectedList.push(`- ${battery.name} (${battery.price.toLocaleString()} ₮)`);
+        
+        const backplate = BACKPLATE_OPTIONS.find(b => b.id === backplateOption);
+        if (backplate && backplate.price > 0) selectedList.push(`- ${backplate.name} (${backplate.price.toLocaleString()} ₮)`);
+        
+        if (selectedParts.case) selectedList.push(`- Тунгалаг кэйс (20,000 ₮)`);
+        if (selectedParts.shipping) selectedList.push(`- Улс хоорондын тээвэр (20,000 ₮)`);
+        if (selectedParts.labor) selectedList.push(`- Ажлын хөлс (60,000 ₮)`);
+        
+        return selectedList.join('\n');
     };
 
     const handleSubmit = async (e) => {
@@ -74,16 +162,7 @@ export function IpodDannyPage() {
 
         setStatus('loading');
 
-        // Compile selected parts summary
-        const selectedList = PARTS_LIST
-            .filter(item => selectedParts[item.id])
-            .map(item => {
-                let details = `${item.name} (${item.price.toLocaleString()} ₮)`;
-                if (item.id === 'faceplate') details += ` [Өнгө: ${faceplateColor.toUpperCase()}]`;
-                if (item.id === 'center') details += ` [Өнгө: ${centerColor.toUpperCase()}]`;
-                return details;
-            })
-            .join('\n');
+        const selectedListStr = getSelectedPartsSummary();
 
         const payload = {
             _subject: `Шинэ iPod Захиалга - ${name}`,
@@ -91,7 +170,7 @@ export function IpodDannyPage() {
             Утас: phone,
             Хүргэлт: 'Шууд авна (Хүргэлтгүй)',
             Нэмэлт_тайлбар: notes || 'Байхгүй',
-            Сонгосон_ангиуд: selectedList,
+            Сонгосон_ангиуд: selectedListStr,
             Нийт_дүн: `${totalPrice.toLocaleString()} ₮`,
             Faceplate_Өнгө: faceplateColor,
             Center_Button_Өнгө: centerColor,
@@ -139,6 +218,11 @@ export function IpodDannyPage() {
         if (centerColor === 'purple') return '#9333ea';
         if (centerColor === 'yellow') return '#eab308';
         return '#171717';
+    };
+
+    const getBackplateName = () => {
+        const selected = BACKPLATE_OPTIONS.find(b => b.id === backplateOption);
+        return selected ? selected.name : 'Үндсэн арын гэр';
     };
 
     return (
@@ -261,8 +345,8 @@ export function IpodDannyPage() {
 
                             {/* Backplate Indicator */}
                             <div className="mt-6 text-center">
-                                <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
-                                    Арын гэр: {selectedParts.backplate ? 'Нимгэн мөнгөлөг (Universal)' : 'Үндсэн арын гэр'}
+                                <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest leading-relaxed block">
+                                    {getBackplateName()}
                                 </span>
                             </div>
                         </div>
@@ -293,17 +377,24 @@ export function IpodDannyPage() {
                                             <p><strong className="text-white">Утас:</strong> {phone}</p>
                                             <p><strong className="text-white">Хүргэлт:</strong> Шууд авна (Хүргэлтгүй)</p>
                                             <p><strong className="text-white">Нийт төлбөр:</strong> {totalPrice.toLocaleString()} ₮</p>
+                                            <div className="mt-4 pt-3 border-t border-white/5 text-[11px] text-neutral-400 whitespace-pre-line leading-relaxed">
+                                                {getSelectedPartsSummary()}
+                                            </div>
                                         </div>
                                     </div>
 
                                     <button 
+                                        type="button"
                                         onClick={() => {
                                             setStatus('idle');
                                             setName('');
                                             setPhone('');
                                             setNotes('');
+                                            setStorageOption('none');
+                                            setBatteryOption('battery_650');
+                                            setBackplateOption('backplate_silver');
                                         }}
-                                        className="mt-8 px-6 py-2.5 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 transition-colors"
+                                        className="mt-8 px-6 py-2.5 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 transition-colors cursor-pointer"
                                     >
                                         Дахин аялуулах
                                     </button>
@@ -311,34 +402,297 @@ export function IpodDannyPage() {
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-8">
                                     {/* Upgrade Options Card */}
-                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8">
+                                    <div className="bg-neutral-900/80 md:bg-neutral-900/20 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 space-y-6">
                                         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                             1. Эд анги болон Сайжруулалтууд (Upgrades)
                                         </h3>
 
-                                        <div className="space-y-4">
-                                            {PARTS_LIST.map((part) => {
-                                                const isRequired = part.id === 'shipping' || part.id === 'labor';
-                                                return (
+                                        <div className="space-y-6">
+                                            {/* Category 1: Front design & LCD */}
+                                            <div className="space-y-4">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.1 Урд хэсэг болон Дэлгэц (Front & Screen)</h4>
+                                                <div className="space-y-3">
+                                                    {OTHER_PARTS.filter(p => p.category === 'parts' && ['lcd', 'faceplate', 'center', 'clickwheel'].includes(p.id)).map((part) => (
+                                                        <div 
+                                                            key={part.id}
+                                                            onClick={() => handlePartToggle(part.id)}
+                                                            className={`p-4 rounded-2xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 select-none cursor-pointer ${
+                                                                selectedParts[part.id] 
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
+                                                            }`}
+                                                        >
+                                                            <div className="flex items-start gap-4">
+                                                                <div className={`w-5 h-5 rounded-md border flex items-center justify-center mt-1 shrink-0 transition-all ${
+                                                                    selectedParts[part.id]
+                                                                        ? 'bg-indigo-600 border-indigo-500 text-white'
+                                                                        : 'border-neutral-700'
+                                                                }`}>
+                                                                    {selectedParts[part.id] && <span className="text-[10px]">✓</span>}
+                                                                </div>
+                                                                <div>
+                                                                    <h4 className="font-bold text-sm text-neutral-100">{part.name}</h4>
+                                                                    <p className="text-xs text-neutral-400 mt-1 max-w-md leading-relaxed">{part.description}</p>
+                                                                    
+                                                                    {part.image && (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                setActivePhoto({ url: part.image, title: part.name, filename: part.image.substring(1) });
+                                                                            }}
+                                                                            className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer w-fit"
+                                                                        >
+                                                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                                                <circle cx="12" cy="13" r="4"></circle>
+                                                                            </svg>
+                                                                            Зураг харах (View Photo)
+                                                                        </button>
+                                                                    )}
+
+                                                                    {/* Color selections if enabled */}
+                                                                    {selectedParts[part.id] && part.hasColor && (
+                                                                        <div 
+                                                                            className="flex gap-2.5 mt-3 items-center"
+                                                                            onClick={(e) => e.stopPropagation()} // Stop click bubbling
+                                                                        >
+                                                                            <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
+                                                                            {(part.id === 'faceplate' 
+                                                                                ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
+                                                                                : ['black', 'silver', 'red', 'blue', 'green', 'purple', 'yellow']
+                                                                            ).map((color) => {
+                                                                                let bg = '#1a1a1a';
+                                                                                if (color === 'gold') bg = '#d4af37';
+                                                                                else if (color === 'silver') bg = '#c0c0c0';
+                                                                                else if (color === 'blue') bg = '#2563eb';
+                                                                                else if (color === 'green') bg = '#16a34a';
+                                                                                else if (color === 'red') bg = '#dc2626';
+                                                                                else if (color === 'purple') bg = '#9333ea';
+                                                                                else if (color === 'yellow') bg = '#eab308';
+                                                                                return (
+                                                                                    <button
+                                                                                        key={color}
+                                                                                        type="button"
+                                                                                        onClick={() => {
+                                                                                            if (part.id === 'faceplate') setFaceplateColor(color);
+                                                                                            if (part.id === 'center') setCenterColor(color);
+                                                                                        }}
+                                                                                        className={`w-5 h-5 rounded-full border transition-all relative ${
+                                                                                            (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
+                                                                                                ? 'ring-2 ring-indigo-500 border-transparent scale-110'
+                                                                                                : 'border-white/20'
+                                                                                        }`}
+                                                                                        style={{ background: bg }}
+                                                                                        title={color.toUpperCase()}
+                                                                                    />
+                                                                                );
+                                                                            })}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            <div className="text-right shrink-0">
+                                                                <span className="text-sm font-semibold text-indigo-300 font-mono">
+                                                                    +{part.price.toLocaleString()} ₮
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Category 2: Storage Upgrades */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.2 Багтаамж (Storage & SD Card)</h4>
+                                                
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                    {STORAGE_OPTIONS.map((opt) => (
+                                                        <div
+                                                            key={opt.id}
+                                                            onClick={() => setStorageOption(opt.id)}
+                                                            className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
+                                                                storageOption === opt.id
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]'
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
+                                                            }`}
+                                                        >
+                                                            <div>
+                                                                <div className="flex justify-between items-start gap-2">
+                                                                    <span className="font-bold text-sm text-neutral-100">{opt.name}</span>
+                                                                    <span className="text-xs font-semibold text-indigo-300 font-mono whitespace-nowrap">
+                                                                        {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
+                                                                    </span>
+                                                                </div>
+                                                                <p className="text-xs text-neutral-400 mt-1 leading-relaxed">{opt.description}</p>
+                                                            </div>
+                                                            {opt.image && opt.id !== 'none' && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
+                                                                    }}
+                                                                    className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer w-fit"
+                                                                >
+                                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                                        <circle cx="12" cy="13" r="4"></circle>
+                                                                    </svg>
+                                                                    Зураг харах
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                {/* SD card helpers: Adapter & Bypass limit */}
+                                                {storageOption !== 'none' && (
+                                                    <div className="space-y-3 mt-4 p-4 bg-neutral-950/40 rounded-2xl border border-white/5">
+                                                        <span className="text-[10px] font-mono text-indigo-400 uppercase tracking-widest block mb-2">Шаардлагатай Дагалдах Сонголтууд:</span>
+                                                        
+                                                        {OTHER_PARTS.filter(p => ['adapter', 'bypass'].includes(p.id)).map((part) => (
+                                                            <div 
+                                                                key={part.id}
+                                                                onClick={() => handlePartToggle(part.id)}
+                                                                className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-4 select-none cursor-pointer ${
+                                                                    selectedParts[part.id] 
+                                                                        ? 'bg-indigo-950/10 border-indigo-500/20 text-neutral-100' 
+                                                                        : 'bg-neutral-900/5 border-white/5 text-neutral-400 hover:border-white/10'
+                                                                }`}
+                                                            >
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${
+                                                                        selectedParts[part.id]
+                                                                            ? 'bg-indigo-600 border-indigo-500 text-white'
+                                                                            : 'border-neutral-700'
+                                                                    }`}>
+                                                                        {selectedParts[part.id] && <span className="text-[8px]">✓</span>}
+                                                                    </div>
+                                                                    <div>
+                                                                        <span className="font-bold text-xs">{part.name}</span>
+                                                                        <span className="text-[10px] text-neutral-500 ml-2">({part.description})</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="text-right shrink-0">
+                                                                    <span className="text-xs font-semibold font-mono text-indigo-300">
+                                                                        +{part.price.toLocaleString()} ₮
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Category 3: Battery Option */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.3 Батарей (Battery Option)</h4>
+                                                
+                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                    {BATTERY_OPTIONS.map((opt) => (
+                                                        <div
+                                                            key={opt.id}
+                                                            onClick={() => setBatteryOption(opt.id)}
+                                                            className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
+                                                                batteryOption === opt.id
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]'
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
+                                                            }`}
+                                                        >
+                                                            <div>
+                                                                <div className="flex justify-between items-start gap-2">
+                                                                    <span className="font-bold text-sm text-neutral-100">{opt.name}</span>
+                                                                </div>
+                                                                <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">{opt.description}</p>
+                                                            </div>
+                                                            
+                                                            <div className="mt-3 flex items-center justify-between">
+                                                                <span className="text-xs font-semibold text-indigo-300 font-mono">
+                                                                    {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
+                                                                </span>
+                                                                {opt.image && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
+                                                                        }}
+                                                                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                                                                    >
+                                                                        Зураг
+                                                                    </button>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Category 4: Backplate Option */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.4 Арын гэр (Backplate Option)</h4>
+                                                
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                                    {BACKPLATE_OPTIONS.map((opt) => (
+                                                        <div
+                                                            key={opt.id}
+                                                            onClick={() => setBackplateOption(opt.id)}
+                                                            className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
+                                                                backplateOption === opt.id
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]'
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
+                                                            }`}
+                                                        >
+                                                            <div>
+                                                                <span className="font-bold text-sm text-neutral-100 block">{opt.name}</span>
+                                                                <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">{opt.description}</p>
+                                                            </div>
+                                                            
+                                                            <div className="mt-3 flex items-center justify-between">
+                                                                <span className="text-xs font-semibold text-indigo-300 font-mono">
+                                                                    {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
+                                                                </span>
+                                                                {opt.image && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
+                                                                        }}
+                                                                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                                                                    >
+                                                                        Зураг
+                                                                    </button>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Category 5: Case / Protection */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.5 Хамгаалалт болон Кэйс (Case & Protection)</h4>
+                                                
+                                                {OTHER_PARTS.filter(p => p.id === 'case').map((part) => (
                                                     <div 
                                                         key={part.id}
-                                                        onClick={() => !isRequired && handlePartToggle(part.id)}
-                                                        className={`p-4 rounded-2xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 select-none ${
-                                                            isRequired
-                                                                ? 'bg-neutral-950/40 border-white/5 opacity-80 cursor-default'
-                                                                : selectedParts[part.id] 
-                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)] cursor-pointer' 
-                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10 cursor-pointer'
+                                                        onClick={() => handlePartToggle(part.id)}
+                                                        className={`p-4 rounded-2xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 select-none cursor-pointer ${
+                                                            selectedParts[part.id] 
+                                                                ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
+                                                                : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
                                                         }`}
                                                     >
                                                         <div className="flex items-start gap-4">
                                                             <div className={`w-5 h-5 rounded-md border flex items-center justify-center mt-1 shrink-0 transition-all ${
-                                                                isRequired || selectedParts[part.id]
+                                                                selectedParts[part.id]
                                                                     ? 'bg-indigo-600 border-indigo-500 text-white'
                                                                     : 'border-neutral-700'
                                                             }`}>
-                                                                {(isRequired || selectedParts[part.id]) && <span className="text-[10px]">✓</span>}
+                                                                {selectedParts[part.id] && <span className="text-[10px]">✓</span>}
                                                             </div>
                                                             <div>
                                                                 <h4 className="font-bold text-sm text-neutral-100">{part.name}</h4>
@@ -357,48 +711,8 @@ export function IpodDannyPage() {
                                                                             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                                                                             <circle cx="12" cy="13" r="4"></circle>
                                                                         </svg>
-                                                                        Зураг харах (View Photo)
+                                                                        Зураг харах
                                                                     </button>
-                                                                )}
-
-                                                                {/* Color selections if enabled */}
-                                                                {selectedParts[part.id] && part.hasColor && (
-                                                                    <div 
-                                                                        className="flex gap-2.5 mt-3 items-center"
-                                                                        onClick={(e) => e.stopPropagation()} // Stop click bubbling
-                                                                    >
-                                                                        <span className="text-[11px] text-neutral-400 font-mono">Өнгө:</span>
-                                                                        {(part.id === 'faceplate' 
-                                                                            ? ['black', 'silver', 'gold', 'blue', 'green', 'red', 'purple']
-                                                                            : ['black', 'silver', 'red', 'blue', 'green', 'purple', 'yellow']
-                                                                        ).map((color) => {
-                                                                            let bg = '#1a1a1a';
-                                                                            if (color === 'gold') bg = '#d4af37';
-                                                                            else if (color === 'silver') bg = '#c0c0c0';
-                                                                            else if (color === 'blue') bg = '#2563eb';
-                                                                            else if (color === 'green') bg = '#16a34a';
-                                                                            else if (color === 'red') bg = '#dc2626';
-                                                                            else if (color === 'purple') bg = '#9333ea';
-                                                                            else if (color === 'yellow') bg = '#eab308';
-                                                                            return (
-                                                                                <button
-                                                                                    key={color}
-                                                                                    type="button"
-                                                                                    onClick={() => {
-                                                                                        if (part.id === 'faceplate') setFaceplateColor(color);
-                                                                                        if (part.id === 'center') setCenterColor(color);
-                                                                                    }}
-                                                                                    className={`w-5 h-5 rounded-full border transition-all relative ${
-                                                                                        (part.id === 'faceplate' ? faceplateColor === color : centerColor === color)
-                                                                                            ? 'ring-2 ring-indigo-500 border-transparent scale-110'
-                                                                                            : 'border-white/20'
-                                                                                    }`}
-                                                                                    style={{ background: bg }}
-                                                                                    title={color.toUpperCase()}
-                                                                                />
-                                                                            );
-                                                                        })}
-                                                                    </div>
                                                                 )}
                                                             </div>
                                                         </div>
@@ -408,8 +722,37 @@ export function IpodDannyPage() {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                );
-                                            })}
+                                                ))}
+                                            </div>
+
+                                            {/* Category 6: Service Fees (Required) */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-neutral-500 tracking-wider">1.6 Үйлчилгээний хураамж (Required Services)</h4>
+                                                
+                                                <div className="space-y-3">
+                                                    {OTHER_PARTS.filter(p => p.isRequired).map((part) => (
+                                                        <div 
+                                                            key={part.id}
+                                                            className="p-4 rounded-2xl border bg-neutral-950/40 border-white/5 opacity-80 cursor-default flex flex-col md:flex-row md:items-center justify-between gap-4 select-none"
+                                                        >
+                                                            <div className="flex items-start gap-4">
+                                                                <div className="w-5 h-5 rounded-md bg-indigo-600/50 border border-indigo-500/50 text-white flex items-center justify-center mt-1 shrink-0">
+                                                                    <span className="text-[10px]">✓</span>
+                                                                </div>
+                                                                <div>
+                                                                    <h4 className="font-bold text-sm text-neutral-400">{part.name}</h4>
+                                                                    <p className="text-xs text-neutral-500 mt-1 max-w-md leading-relaxed">{part.description}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="text-right shrink-0">
+                                                                <span className="text-sm font-semibold text-indigo-400/75 font-mono">
+                                                                    +{part.price.toLocaleString()} ₮
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -444,8 +787,6 @@ export function IpodDannyPage() {
                                                 />
                                             </div>
                                         </div>
-
-                                        {/* Delivery address removed - pick-up only */}
 
                                         <div className="space-y-2">
                                             <label className="text-xs font-mono uppercase text-neutral-400">Тэмдэглэл / Нэмэлт тайлбар (Notes)</label>
@@ -565,11 +906,12 @@ export function IpodDannyPage() {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             transition={{ type: "spring", duration: 0.4 }}
-                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                            onClick={(e) => e.stopPropagation()}
                             className="relative max-w-4xl w-full bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 cursor-default flex flex-col max-h-[95vh] overflow-y-auto"
                         >
                             {/* Close Button */}
                             <button
+                                type="button"
                                 onClick={() => setActivePhoto(null)}
                                 className="absolute top-4 right-4 bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-400 hover:text-white p-2 rounded-full transition-all cursor-pointer z-10"
                                 title="Хаах"
