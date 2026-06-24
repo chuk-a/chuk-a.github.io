@@ -114,7 +114,7 @@ export function IpodDannyPage() {
         if (selectedParts.adapter) total += 60000;
         if (selectedParts.bypass) total += 20000;
         if (selectedParts.shipping) total += 20000;
-        if (selectedParts.labor) total += 60000;
+        if (selectedParts.labor) total += getLaborPrice();
         
         // Battery option
         const selectedBattery = BATTERY_OPTIONS.find(b => b.id === batteryOption);
@@ -161,7 +161,7 @@ export function IpodDannyPage() {
         
         if (selectedParts.case) selectedList.push(`- Тунгалаг кэйс (20,000 ₮)`);
         if (selectedParts.shipping) selectedList.push(`- Улс хоорондын тээвэр (20,000 ₮)`);
-        if (selectedParts.labor) selectedList.push(`- Ажлын хөлс (60,000 ₮)`);
+        if (selectedParts.labor) selectedList.push(`- Ажлын хөлс (${getLaborPrice().toLocaleString()} ₮)`);
         
         return selectedList.join('\n');
     };
@@ -239,14 +239,18 @@ export function IpodDannyPage() {
         return selected ? selected.name : 'Үндсэн арын гэр';
     };
 
-    const getShortBackplateName = (id) => {
-        if (id === 'none') return 'Үндсэн арын гэр';
-        if (id === 'backplate_silver') return 'Нимгэн мөнгөлөг';
-        if (id === 'u2_gold') return 'U2 Алтлаг (Gold)';
-        if (id === 'u2_silver') return 'U2 Мөнгөлөг (Silver)';
-        if (id === 'u2_black') return 'U2 Хар (Black)';
-        if (id === 'u2_rainbow') return 'U2 Солонгон (Rainbow)';
-        return '';
+    const getLaborPrice = () => {
+        let upgradesCount = 0;
+        if (batteryOption !== 'none') upgradesCount++;
+        if (storageOption !== 'none') upgradesCount++;
+        if (selectedParts.faceplate) upgradesCount++;
+        if (selectedParts.clickwheel) upgradesCount++;
+        if (backplateOption !== 'none') upgradesCount++;
+        if (selectedParts.lcd) upgradesCount++;
+
+        if (upgradesCount <= 2) return 30000;
+        if (upgradesCount >= 5) return 90000;
+        return 60000;
     };
 
     return (
@@ -391,46 +395,25 @@ export function IpodDannyPage() {
                                 </span>
                             </div>
 
-                            {/* Backplate Selector */}
-                            <div className="w-full mt-6 pt-6 border-t border-white/5 space-y-3">
-                                <span className="text-[10px] font-mono text-indigo-400 uppercase tracking-widest block text-center">Арын гэр сонгох (Backplate)</span>
-                                <div className="grid grid-cols-2 gap-2 w-full">
-                                    {BACKPLATE_OPTIONS.map((opt) => (
-                                        <div
-                                            key={opt.id}
-                                            onClick={() => setBackplateOption(opt.id)}
-                                            className={`p-2.5 rounded-xl border text-left cursor-pointer transition-all flex flex-col justify-between select-none ${
-                                                backplateOption === opt.id
-                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_10px_rgba(99,102,241,0.05)]'
-                                                    : 'bg-neutral-950/40 border-white/5 hover:border-white/10'
-                                            }`}
-                                        >
-                                            <div>
-                                                <span className="font-bold text-[11px] text-neutral-100 block leading-tight truncate" title={opt.name}>
-                                                    {getShortBackplateName(opt.id)}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center justify-between mt-2">
-                                                <span className="text-[9px] font-mono text-indigo-300">
-                                                    {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
-                                                </span>
-                                                {opt.image && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
-                                                        }}
-                                                        className="text-[9px] text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer"
-                                                    >
-                                                        Зураг
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    ))}
+                            {/* Selected Backplate Image Preview */}
+                            {backplateOption !== 'none' && (
+                                <div className="mt-4 w-full flex flex-col items-center border-t border-white/5 pt-4">
+                                    <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-2">Арын гэр (Backplate View)</span>
+                                    <div className="w-28 h-40 bg-neutral-950/40 rounded-xl overflow-hidden flex items-center justify-center border border-white/5 p-1">
+                                        <img 
+                                            src={BACKPLATE_OPTIONS.find(b => b.id === backplateOption)?.image} 
+                                            alt="Backplate Preview" 
+                                            className="h-full w-auto object-contain rounded-lg hover:scale-105 transition-transform cursor-zoom-in"
+                                            onClick={() => {
+                                                const selected = BACKPLATE_OPTIONS.find(b => b.id === backplateOption);
+                                                if (selected) {
+                                                    setActivePhoto({ url: selected.image, title: selected.name, filename: selected.image.substring(1) });
+                                                }
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -712,9 +695,51 @@ export function IpodDannyPage() {
                                                 </div>
                                             </div>
 
-                                            {/* Category 4: Case / Protection */}
+                                            {/* Category 4: Backplate Option */}
                                             <div className="space-y-4 border-t border-white/5 pt-6">
-                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.4 Хамгаалалт болон Кэйс (Case & Protection)</h4>
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.4 Арын гэр (Backplate Option)</h4>
+                                                
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                                    {BACKPLATE_OPTIONS.map((opt) => (
+                                                        <div
+                                                            key={opt.id}
+                                                            onClick={() => setBackplateOption(opt.id)}
+                                                            className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
+                                                                backplateOption === opt.id
+                                                                    ? 'bg-indigo-950/20 border-indigo-500/40 shadow-[0_0_15px_rgba(99,102,241,0.05)]'
+                                                                    : 'bg-neutral-900/10 border-white/5 hover:border-white/10'
+                                                            }`}
+                                                        >
+                                                            <div>
+                                                                <span className="font-bold text-sm text-neutral-100 block">{opt.name}</span>
+                                                                <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">{opt.description}</p>
+                                                            </div>
+                                                            
+                                                            <div className="mt-3 flex items-center justify-between">
+                                                                <span className="text-xs font-semibold text-indigo-300 font-mono">
+                                                                    {opt.price > 0 ? `+${opt.price.toLocaleString()} ₮` : 'Үндсэн'}
+                                                                </span>
+                                                                {opt.image && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            setActivePhoto({ url: opt.image, title: opt.name, filename: opt.image.substring(1) });
+                                                                        }}
+                                                                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                                                                    >
+                                                                        Зураг
+                                                                    </button>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Category 5: Case / Protection */}
+                                            <div className="space-y-4 border-t border-white/5 pt-6">
+                                                <h4 className="text-xs font-mono uppercase text-indigo-400 tracking-wider">1.5 Хамгаалалт болон Кэйс (Case & Protection)</h4>
                                                 
                                                 {OTHER_PARTS.filter(p => p.id === 'case').map((part) => (
                                                     <div 
@@ -765,9 +790,9 @@ export function IpodDannyPage() {
                                                 ))}
                                             </div>
 
-                                            {/* Category 5: Service Fees (Required) */}
+                                            {/* Category 6: Service Fees (Required) */}
                                             <div className="space-y-4 border-t border-white/5 pt-6">
-                                                <h4 className="text-xs font-mono uppercase text-neutral-500 tracking-wider">1.5 Үйлчилгээний хураамж (Required Services)</h4>
+                                                <h4 className="text-xs font-mono uppercase text-neutral-500 tracking-wider">1.6 Үйлчилгээний хураамж (Required Services)</h4>
                                                 
                                                 <div className="space-y-3">
                                                     {OTHER_PARTS.filter(p => p.isRequired).map((part) => (
@@ -781,12 +806,19 @@ export function IpodDannyPage() {
                                                                 </div>
                                                                 <div>
                                                                     <h4 className="font-bold text-sm text-neutral-400">{part.name}</h4>
-                                                                    <p className="text-xs text-neutral-500 mt-1 max-w-md leading-relaxed">{part.description}</p>
+                                                                    <p className="text-xs text-neutral-500 mt-1 max-w-md leading-relaxed">
+                                                                        {part.description}
+                                                                        {part.id === 'labor' && (
+                                                                            <span className="block text-indigo-400 mt-1 font-mono text-[10px]">
+                                                                                * Сонгосон ажлууд дээр үндэслэн автоматаар бодов.
+                                                                            </span>
+                                                                        )}
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                             <div className="text-right shrink-0">
                                                                 <span className="text-sm font-semibold text-indigo-400/75 font-mono">
-                                                                    +{part.price.toLocaleString()} ₮
+                                                                    +{((part.id === 'labor' ? getLaborPrice() : part.price)).toLocaleString()} ₮
                                                                 </span>
                                                             </div>
                                                         </div>
