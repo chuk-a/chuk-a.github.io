@@ -399,11 +399,11 @@ export function IpodDannyPage() {
                             {backplateOption !== 'none' && (
                                 <div className="mt-4 w-full flex flex-col items-center border-t border-white/5 pt-4">
                                     <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider mb-2">Арын гэр (Backplate View)</span>
-                                    <div className="w-28 h-40 bg-neutral-950/40 rounded-xl overflow-hidden flex items-center justify-center border border-white/5 p-1">
+                                    <div className="w-44 h-64 bg-neutral-950/40 rounded-2xl overflow-hidden flex items-center justify-center border border-white/5 p-2">
                                         <img 
                                             src={BACKPLATE_OPTIONS.find(b => b.id === backplateOption)?.image} 
                                             alt="Backplate Preview" 
-                                            className="h-full w-auto object-contain rounded-lg hover:scale-105 transition-transform cursor-zoom-in"
+                                            className="h-full w-auto object-contain rounded-xl hover:scale-105 transition-transform cursor-zoom-in"
                                             onClick={() => {
                                                 const selected = BACKPLATE_OPTIONS.find(b => b.id === backplateOption);
                                                 if (selected) {
