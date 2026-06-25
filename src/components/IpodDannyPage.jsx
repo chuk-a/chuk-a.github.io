@@ -264,14 +264,31 @@ export function IpodDannyPage() {
     };
 
     const getShippingPrice = () => {
+        const hasBattery = batteryOption !== 'none';
+        const hasStorage = storageOption !== 'none';
+        const hasBackplate = backplateOption !== 'none';
+        const hasLcd = selectedParts.lcd;
+        const hasFaceplate = selectedParts.faceplate;
+        const hasCenter = selectedParts.center;
+        const hasClickwheel = selectedParts.clickwheel;
+        const hasHeadphoneJack = selectedParts.headphone_jack;
+        const hasCase = selectedParts.case;
+        const hasAdapter = selectedParts.adapter;
+        const hasBypass = selectedParts.bypass;
+
+        // If only battery is selected (and no other parts/options are selected)
+        if (hasBattery && !hasStorage && !hasBackplate && !hasLcd && !hasFaceplate && !hasCenter && !hasClickwheel && !hasHeadphoneJack && !hasCase && !hasAdapter && !hasBypass) {
+            return 5000;
+        }
+
         let upgradesCount = 0;
-        if (batteryOption !== 'none') upgradesCount++;
-        if (storageOption !== 'none') upgradesCount++;
-        if (selectedParts.faceplate) upgradesCount++;
-        if (selectedParts.clickwheel) upgradesCount++;
-        if (selectedParts.headphone_jack) upgradesCount++;
-        if (backplateOption !== 'none') upgradesCount++;
-        if (selectedParts.lcd) upgradesCount++;
+        if (hasBattery) upgradesCount++;
+        if (hasStorage) upgradesCount++;
+        if (hasFaceplate) upgradesCount++;
+        if (hasClickwheel) upgradesCount++;
+        if (hasHeadphoneJack) upgradesCount++;
+        if (hasBackplate) upgradesCount++;
+        if (hasLcd) upgradesCount++;
 
         if (upgradesCount <= 2) return 10000;
         return 20000;
