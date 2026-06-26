@@ -141,6 +141,8 @@ export function IpodDannyPage() {
 
     const handlePartToggle = (id) => {
         if (id === 'shipping' || id === 'labor') return;
+        if (id === 'adapter' && storageOption !== 'none') return;
+        if (id === 'bypass' && (storageOption === 'sd_256' || storageOption === 'sd_512')) return;
         setSelectedParts(prev => ({
             ...prev,
             [id]: !prev[id]
@@ -658,36 +660,42 @@ export function IpodDannyPage() {
                                                     <div className="space-y-3 mt-4 p-4 bg-neutral-950/40 rounded-2xl border border-white/5">
                                                         <span className="text-[10px] font-mono text-indigo-400 uppercase tracking-widest block mb-2">Шаардлагатай Дагалдах Сонголтууд:</span>
                                                         
-                                                        {OTHER_PARTS.filter(p => ['adapter', 'bypass'].includes(p.id)).map((part) => (
-                                                            <div 
-                                                                key={part.id}
-                                                                onClick={() => handlePartToggle(part.id)}
-                                                                className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-4 select-none cursor-pointer ${
-                                                                    selectedParts[part.id] 
-                                                                        ? 'bg-indigo-950/10 border-indigo-500/20 text-neutral-100' 
-                                                                        : 'bg-neutral-900/5 border-white/5 text-neutral-400 hover:border-white/10'
-                                                                }`}
-                                                            >
-                                                                <div className="flex items-center gap-3">
-                                                                    <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${
-                                                                        selectedParts[part.id]
-                                                                            ? 'bg-indigo-600 border-indigo-500 text-white'
-                                                                            : 'border-neutral-700'
-                                                                    }`}>
-                                                                        {selectedParts[part.id] && <span className="text-[8px]">✓</span>}
+                                                        {OTHER_PARTS.filter(p => ['adapter', 'bypass'].includes(p.id)).map((part) => {
+                                                            const isLocked = (part.id === 'adapter' && storageOption !== 'none') ||
+                                                                            (part.id === 'bypass' && (storageOption === 'sd_256' || storageOption === 'sd_512'));
+                                                            return (
+                                                                <div 
+                                                                    key={part.id}
+                                                                    onClick={() => !isLocked && handlePartToggle(part.id)}
+                                                                    className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-4 select-none ${
+                                                                        isLocked ? 'cursor-default' : 'cursor-pointer'
+                                                                    } ${
+                                                                        selectedParts[part.id] 
+                                                                            ? 'bg-indigo-950/10 border-indigo-500/20 text-neutral-100' 
+                                                                            : 'bg-neutral-900/5 border-white/5 text-neutral-400' + (isLocked ? '' : ' hover:border-white/10')
+                                                                    }`}
+                                                                >
+                                                                    <div className="flex items-center gap-3">
+                                                                        <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${
+                                                                            selectedParts[part.id]
+                                                                                ? 'bg-indigo-600 border-indigo-500 text-white'
+                                                                                : 'border-neutral-700'
+                                                                        }`}>
+                                                                            {selectedParts[part.id] && <span className="text-[8px]">✓</span>}
+                                                                        </div>
+                                                                        <div>
+                                                                            <span className="font-bold text-xs">{part.name}</span>
+                                                                            <span className="text-[10px] text-neutral-500 ml-2">({part.description})</span>
+                                                                        </div>
                                                                     </div>
-                                                                    <div>
-                                                                        <span className="font-bold text-xs">{part.name}</span>
-                                                                        <span className="text-[10px] text-neutral-500 ml-2">({part.description})</span>
+                                                                    <div className="text-right shrink-0">
+                                                                        <span className="text-xs font-semibold font-mono text-indigo-300">
+                                                                            +{part.price.toLocaleString()} ₮
+                                                                        </span>
                                                                     </div>
                                                                 </div>
-                                                                <div className="text-right shrink-0">
-                                                                    <span className="text-xs font-semibold font-mono text-indigo-300">
-                                                                        +{part.price.toLocaleString()} ₮
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        ))}
+                                                            );
+                                                        })}
                                                     </div>
                                                 )}
                                             </div>
@@ -945,12 +953,12 @@ export function IpodDannyPage() {
                                             <h4 className="text-xs font-mono uppercase text-indigo-400 mb-2">Шилжүүлэг хийх дансууд:</h4>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
-                                                    <span className="text-[10px] font-mono text-neutral-500">Хаан Банк</span>
+                                                    <span className="text-[10px] font-mono text-neutral-500">Хаан Банк (Чулуунбаатар)</span>
                                                     <span className="text-base font-bold text-white mt-1">5111 573 367</span>
                                                 </div>
                                                 <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
-                                                    <span className="text-[10px] font-mono text-neutral-500">М Банк</span>
-                                                    <span className="text-base font-bold text-white mt-1">MN53 0039 00 8000 969699</span>
+                                                    <span className="text-[10px] font-mono text-neutral-500">М Банк (Чулуунбаатар)</span>
+                                                    <span className="text-base font-bold text-white mt-1">MN13000500</span>
                                                 </div>
                                             </div>
                                         </div>
