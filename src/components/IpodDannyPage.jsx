@@ -954,11 +954,11 @@ export function IpodDannyPage() {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
                                                     <span className="text-[10px] font-mono text-neutral-500">Хаан Банк (Чулуунбаатар)</span>
-                                                    <span className="text-base font-bold text-white mt-1">5111 573 367</span>
+                                                    <span className="text-base font-bold text-white mt-1">MN130005005111573367</span>
                                                 </div>
                                                 <div className="p-4 bg-neutral-950/40 rounded-2xl border border-white/5 flex flex-col justify-between">
                                                     <span className="text-[10px] font-mono text-neutral-500">М Банк (Чулуунбаатар)</span>
-                                                    <span className="text-base font-bold text-white mt-1">MN13000500</span>
+                                                    <span className="text-base font-bold text-white mt-1">MN530039008000969699</span>
                                                 </div>
                                             </div>
                                         </div>
