@@ -33,7 +33,7 @@ const OTHER_PARTS = [
     { id: 'clickwheel', name: 'Голын Click Wheel', description: 'iPod Classic-ийн Click wheel дугуй удирдлага солих.', price: 40000, category: 'parts', hasColor: true, image: '/clickwheel-colors.jpg' },
     { id: 'headphone_jack', name: 'Чихэвч болон lock button солих', description: 'Чихэвчний оролт (headphone jack) болон Hold (lock) товчлуурын угсралт солих.', price: 30000, category: 'parts' },
     { id: 'case', name: 'Тунгалаг кэйс (Clear Case)', description: 'Тунгалаг хамгаалалтын гэр (кэйс). iPod-ыг зурагдахаас хамгаална.', price: 20000, category: 'parts', image: '/clear-case.jpg' },
-    { id: 'adapter', name: 'SD card adapter', description: 'SD картны адаптер (iFlash эсвэл ижил төрлийн олон картны үүр бүхий адаптер).', price: 60000, category: 'parts' },
+    { id: 'adapter', name: 'SD card adapter', description: 'SD картны адаптер (олон картны үүр бүхий адаптер).', price: 60000, category: 'parts' },
     { id: 'bypass', name: '128GB хязгаарлалт давах (Bypass Limit)', description: 'iPod Classic 6 дахь үеийн (6th gen) хувьд 128GB-аас дээш багтаамжтай карт (256GB эсвэл 512GB) ашиглах үед 128GB-ийн хязгаарлалтыг тойрч гарах систем суулгах.', price: 20000, category: 'parts' },
     { id: 'shipping', name: 'Улс хоорондын тээвэр (International Shipping)', description: 'Улс хоорондын ачаа тээвэр, карго болон холбогдох үйлчилгээ.', price: 20000, category: 'service', isRequired: true },
     { id: 'labor', name: 'Ажлын хөлс (Labor)', description: 'iPod угсралт, оношилгоо, цэвэрлэгээ болон эд анги солих үйлчилгээ.', price: 60000, category: 'service', isRequired: true }
