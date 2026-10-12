@@ -57,6 +57,7 @@ function NavBar() {
             <div className="nav-links">
                 <a href="/#hero" className="nav-link">Horizon</a>
                 <Link to="/radiant" className="nav-link">Radiant</Link>
+                <Link to="/ipod" className="nav-link">iPod</Link>
                 <a href="/portfolio" className="nav-link">Mission Log</a>
                 <a href="/#vessel" className="nav-link">Vessel Specs</a>
                 <a href="/weather" className="nav-link">Atmospheric Data</a>
@@ -81,6 +82,7 @@ function NavBar() {
                 <div className="mobile-nav-links">
                     <a href="/#hero" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Horizon</a>
                     <Link to="/radiant" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Radiant</Link>
+                    <Link to="/ipod" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>iPod</Link>
                     <a href="/portfolio" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Mission Log</a>
                     <a href="/#vessel" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Vessel Specs</a>
                     <a href="/weather" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Atmospheric Data</a>
@@ -223,6 +225,7 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/blackhole" element={<GargantuaPage />} />
                 <Route path="/radiant" element={<RadiantPage />} />
+                <Route path="/ipod" element={<IpodDannyPage />} />
                 <Route path="/ipod-mongolia" element={<IpodDannyPage />} />
             </Routes>
         </Router>
